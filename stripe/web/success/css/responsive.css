@@ -1,0 +1,1797 @@
+/*all page responsive css start here(8-6-2021)*/ 
+
+
+
+@media only screen and (max-width: 480px) {
+
+/*home page css responsive css start here*/
+
+.navbar-brand.logowhite {
+width:72%;	
+}
+
+ul.navbar-nav.mainnavigation {
+margin-left:0%;	
+margin-top: 20px;
+}
+
+.mainnavigation li.nav-item {
+padding: 0px 0px;
+border-top: 1px solid #fff;
+}
+
+.mainnavigation .nav-item.active a.nav-link {
+font-size: 14px;
+font-weight: 500;
+}
+
+.mainnavigation .nav-item a.nav-link {
+font-size:14px;
+font-weight: 500;	
+}
+
+
+.navbar-light .navbar-toggler-icon {
+background-image:none;	
+width:inherit;
+height:inherit;
+}
+
+.navbar-light .navbar-toggler {
+color:#fff;
+border-color:#fff;	
+}
+
+.navbar-toggler {
+padding: 4px 10px 5px 10px;
+}
+
+
+
+.bannerBtn {
+padding: 6px 20px;
+width: 37%;
+margin: 15px auto;
+font-size: 14px;
+font-weight: 500;	
+}
+
+
+.herosilder .carousel-caption h3 {
+font-size:14px;
+line-height:30px;	
+margin-bottom:0px;
+}
+
+.herosilder .carousel-caption {
+right: 5%;
+left:5%;
+top:3%;	
+}
+
+.herosilder .carousel-caption p {
+width:100%;
+font-size: 14px;
+line-height: 20px;
+}
+
+.main-slides-item.carousel-item {
+height:230px;	
+}
+
+.event-heading-main-area {
+padding: 30px 0px 0px 0px;	
+}
+
+.event-heading-detail-area h5 {
+font-size:16px;
+margin: 0px 0px 0px 0px;	
+}
+
+.event-heading-detail-area h2 {
+font-size:20px;	
+margin-bottom: 0px;
+}
+
+.event-heading-detail-area {
+width:100%;	
+}
+
+.event-heading-detail-area p {
+font-size:14px;	
+line-height: 25px;
+}
+
+.upcoming-envent-card-area {
+width:100%;
+}
+
+.upcoming-envent-card-area h3 {
+font-size:18px;	
+margin-bottom: 0px;
+}
+
+.upcoming-envent-img-area img {
+margin: 0px 0px 0px 0px;	
+}
+
+
+.upcoming-envent-card-area h4 {
+font-size:17px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-card-right-area {
+width:100%;	
+}
+
+.upcoming-envent-text-area p {
+font-size: 15px;
+margin: 5px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;
+margin: 10px 0px 0px 0px;	
+}
+
+
+.upcoming-envent-card-right-area h3 {
+font-size:18px;	
+margin-bottom: 0px;
+}
+
+
+.upcoming-envent-card-right-area h4 {
+font-size:17px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-text-area p {
+font-size: 15px;
+margin: 5px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;	
+}
+
+.event-bt-main-area {
+padding: 0px 0px 30px 0px;
+}
+
+.footer-detail-main-area {
+margin: 10px 0px 0px 0px;	
+}
+
+.footer-company-logo img {
+width:70%;	
+}
+
+.social-media ul li {
+margin: 0px 8px 0px 8px;
+font-size: 16px;
+width: 35px;
+height: 35px;	
+line-height: 35px;
+}
+
+.copyright p {
+font-size: 14px;
+text-align:center;	
+}
+
+.footer-menu-area ul {
+text-align:center;	
+}
+
+.footer-menu-area ul li {
+font-size: 16px;
+margin:15px 20px 0px 0px;	
+}
+
+.footer-detail-main-area .col-6 {
+max-width:100%;
+flex:100%;	
+}
+
+.footer-menu-area ul li.footer-contact-hide {
+display:none;	
+}
+
+.event-bt-main-area .col-6 {
+flex:100%;
+max-width:100%;	
+}
+
+/*home page css responsive css end here*/
+
+
+
+
+/*inner banner responsive css start here*/
+
+.inner-banner-detail-area {
+height: 200px;
+}
+
+.breadcrum-info-title h2 {
+font-size: 25px;
+font-weight: 600;
+margin: 0px 0px 0px 0px;	
+}
+
+
+.breadcrum-info-title {
+margin: 50px 0px 0px 0px;	
+}
+
+/*inner banner responsive css end here*/
+
+
+
+
+/*event detail page  responsive css start here*/
+
+
+.event-dispription-main-area {
+padding: 40px 0px 0px 0px;	
+}
+
+.event-img-main-area img {
+height:300px;	
+}
+
+
+.event-details-venu {
+padding: 0px 0px 10px 0px;	
+}
+
+.event-details-venu ul li {
+padding: 15px 0px 0px 0px;
+font-size: 16px;	
+}
+
+.event-details-venu ul li i {
+font-size: 18px;
+}
+
+.event-detail-main-area h2 {
+font-size:20px;
+padding: 0px 0px 10px 0px;
+text-align:center;	
+}
+
+.event-detail-main-area p {
+text-align:center;	
+}
+
+.event-details-join-area h3 {
+font-size: 20px;
+margin: 25px 0px 15px 0px;	
+}
+
+.event-rgt-form {
+width:97%;	
+}
+
+.event-select-rgt-form {
+width:97%;	
+}
+
+.evetn-masge-box {
+width:97%;	
+}
+
+.event-join-now-btn {
+padding: 5px 20px;
+font-size: 17px;	
+}
+
+.event-sidebar .sidebar-title {
+font-size:20px;	
+}
+
+.event-details-join-area {
+margin:0px 0px 30px 0px;	
+}
+
+.recent-posts-left-side-bar-area h4 {
+font-size:20px;	
+}
+
+.post-img-area img {
+margin:0px 10px 0px 0px;	
+}
+
+.post-img-area h5 {
+font-size:15px;	
+margin: 0px 0px 0px 0px;
+}
+
+
+/*event detail page responsive css end here*/
+
+
+}
+
+
+@media only screen and (min-width:481px) and (max-width: 568px) {
+
+
+
+
+/*home page css responsive css start here*/
+
+
+.logowhite img {
+width:43%;	
+}
+
+.navbar-brand.logowhite {
+width:72%;	
+}
+
+ul.navbar-nav.mainnavigation {
+margin-left:0%;	
+margin-top: 20px;
+}
+
+.mainnavigation li.nav-item {
+padding: 0px 0px;
+border-top: 1px solid #fff;
+}
+
+.mainnavigation .nav-item.active a.nav-link {
+font-size: 14px;
+font-weight: 500;
+}
+
+.mainnavigation .nav-item a.nav-link {
+font-size:14px;
+font-weight: 500;	
+}
+
+
+.navbar-light .navbar-toggler-icon {
+background-image:none;	
+width:inherit;
+height:inherit;
+}
+
+.navbar-light .navbar-toggler {
+color:#fff;
+border-color:#fff;	
+}
+
+.navbar-toggler {
+padding: 4px 10px 5px 10px;
+}
+
+
+.bannerBtn {
+padding: 6px 20px;
+width:20%;
+margin: 15px auto;
+font-size: 14px;
+font-weight: 500;	
+}
+
+
+.herosilder .carousel-caption h3 {
+font-size:18px;
+line-height:30px;	
+margin-bottom:0px;
+}
+
+.herosilder .carousel-caption {
+right: 5%;
+left:5%;
+top:10%;	
+}
+
+.herosilder .carousel-caption p {
+width:100%;
+font-size:16px;
+line-height: 20px;
+}
+
+.main-slides-item.carousel-item {
+height:230px;	
+}
+
+.event-heading-main-area {
+padding: 30px 0px 0px 0px;	
+}
+
+.event-heading-detail-area h5 {
+font-size:16px;
+margin: 0px 0px 0px 0px;	
+}
+
+.event-heading-detail-area h2 {
+font-size:20px;	
+margin-bottom: 0px;
+}
+
+.event-heading-detail-area {
+width:100%;	
+}
+
+.event-heading-detail-area p {
+font-size:14px;	
+line-height: 25px;
+}
+
+.upcoming-envent-card-area {	
+width:100%;
+}
+
+.upcoming-envent-card-area h3 {
+font-size:18px;	
+margin-bottom: 0px;
+}
+
+.upcoming-envent-img-area img {
+margin: 0px 0px 0px 0px;	
+}
+
+
+.upcoming-envent-card-area h4 {
+font-size:15px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-card-right-area {
+width:100%;	
+}
+
+
+.upcoming-envent-text-area p {
+font-size: 15px;
+margin: 5px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;
+margin: 10px 0px 0px 0px;	
+}
+
+
+.upcoming-envent-card-right-area h3 {
+font-size:18px;	
+margin-bottom: 0px;
+}
+
+
+.upcoming-envent-card-right-area h4 {
+font-size:17px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-text-area p {
+font-size: 15px;
+margin: 5px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;	
+}
+
+.footer-detail-main-area {
+margin:20px 0px 0px 0px;	
+}
+
+.footer-company-logo img {
+width:35%;	
+}
+
+.social-media ul li {
+margin: 0px 10px 0px 10px;
+font-size: 16px;
+width: 35px;
+height: 35px;	
+line-height: 33px;
+}
+
+.copyright p {
+font-size: 15px;
+text-align:center;	
+}
+
+.footer-menu-area ul {
+text-align:center;	
+}
+
+.footer-menu-area ul li {
+font-size: 15px;
+margin:15px 0px 0px 0px;	
+}
+
+
+.event-bt-main-area {
+padding: 0px 0px 25px 0px;
+}
+
+
+.footer-menu-area ul li.footer-contact-hide {
+display:none;	
+}
+
+/*home page css responsive css end here*/
+
+
+
+
+/*inner banner responsive css start here*/
+
+.inner-banner-detail-area {
+height: 200px;
+}
+
+.breadcrum-info-title h2 {
+font-size: 25px;
+font-weight: 600;
+margin: 0px 0px 0px 0px;	
+}
+
+
+.breadcrum-info-title {
+margin: 50px 0px 0px 0px;	
+}
+
+/*inner banner responsive css end here*/
+
+
+
+
+/*event detail page  responsive css start here*/
+
+
+.event-dispription-main-area {
+padding: 40px 0px 0px 0px;	
+}
+
+.event-img-main-area img {
+height:300px;	
+}
+
+
+.event-details-venu {
+padding: 0px 0px 10px 0px;	
+}
+
+.event-details-venu ul li {
+margin: 0px 10px 0px 0px;	
+padding: 15px 0px 0px 0px;
+font-size: 15px;	
+}
+
+.event-details-venu ul li i {
+font-size: 16px;
+}
+
+.event-detail-main-area h2 {
+font-size:20px;
+padding: 0px 0px 10px 0px;
+text-align:center;	
+}
+
+.event-detail-main-area p {
+text-align:center;	
+}
+
+
+.event-details-join-area h3 {
+font-size: 20px;
+margin: 25px 0px 15px 0px;	
+}
+
+.event-rgt-form {
+width:100%;	
+}
+
+
+.event-select-rgt-form {
+width:100%;	
+}
+
+
+.evetn-masge-box {
+width:100%;	
+}
+
+.event-join-now-btn {
+padding: 5px 20px;
+font-size: 17px;	
+}
+
+.event-sidebar .sidebar-title {
+font-size:20px;	
+}
+
+.event-details-join-area {
+margin:0px 0px 30px 0px;	
+}
+
+.recent-posts-left-side-bar-area h4 {
+font-size:20px;	
+}
+
+
+.post-img-area h5 {
+font-size:16px;	
+}
+
+
+.post-img-area p {
+font-size: 15px;	
+}
+
+
+/*event detail page responsive css end here*/
+
+
+}
+
+
+
+@media only screen and (min-width:569px) and (max-width:766px) {
+
+
+
+/*home page css responsive css start here*/
+
+
+.logowhite img {
+width:43%;	
+}
+
+.navbar-brand.logowhite {
+width:72%;	
+}
+
+ul.navbar-nav.mainnavigation {
+margin-left:0%;	
+margin-top: 20px;
+}
+
+.mainnavigation li.nav-item {
+padding: 0px 0px;
+border-top: 1px solid #fff;
+}
+
+.mainnavigation .nav-item.active a.nav-link {
+font-size: 14px;
+font-weight: 500;
+}
+
+.mainnavigation .nav-item a.nav-link {
+font-size:14px;
+font-weight: 500;	
+}
+
+
+.navbar-light .navbar-toggler-icon {
+background-image:none;	
+width:inherit;
+height:inherit;
+}
+
+.navbar-light .navbar-toggler {
+color:#fff;
+border-color:#fff;	
+}
+
+.navbar-toggler {
+padding: 4px 10px 5px 10px;
+}
+
+
+.bannerBtn {
+padding: 6px 20px;
+width: 35%;
+margin: 15px auto;
+font-size: 14px;
+font-weight: 500;	
+}
+
+
+.herosilder .carousel-caption h3 {
+font-size:20px;
+line-height:30px;	
+margin-bottom:10px;
+}
+
+.herosilder .carousel-caption {
+right: 5%;
+left:5%;
+top:10%;	
+}
+
+.herosilder .carousel-caption p {
+width: 70%;
+font-size: 16px;
+line-height: 25px;
+}
+
+.main-slides-item.carousel-item {
+height:250px;	
+}
+
+.event-heading-main-area {
+padding: 30px 0px 0px 0px;	
+}
+
+.event-heading-detail-area h5 {
+font-size:16px;
+margin: 0px 0px 0px 0px;	
+}
+
+.event-heading-detail-area h2 {
+font-size:20px;	
+margin-bottom: 0px;
+}
+
+.event-heading-detail-area {
+width:100%;	
+}
+
+
+
+.event-heading-detail-area p {
+font-size:14px;	
+line-height: 25px;
+}
+
+.upcoming-envent-card-area {
+width:100%;
+}
+
+.upcoming-envent-card-area h3 {
+font-size:18px;	
+margin-bottom: 0px;
+text-align:left;
+}
+
+.upcoming-envent-img-area img {
+margin: 0px 0px 0px 0px;	
+}
+
+
+.upcoming-envent-card-area h4 {
+font-size:17px;
+font-weight:500;
+text-align: left;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-text-area p {
+font-size: 15px;
+margin: 5px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;
+margin: 10px 0px 0px 0px;	
+}
+
+.upcoming-envent-card-right-area {
+width:100%;	
+}
+
+
+.upcoming-envent-card-right-area h3 {
+font-size:18px;	
+margin-bottom: 0px;
+}
+
+
+.upcoming-envent-card-right-area h4 {
+font-size:17px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-text-area p {
+font-size: 16px;
+margin:10px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;	
+}
+
+.footer-detail-main-area {
+margin:20px 0px 0px 0px;	
+}
+
+.footer-company-logo img {
+width:50%;	
+}
+
+.social-media ul li {
+margin: 0px 10px 0px 10px;
+font-size: 16px;
+width: 35px;
+height: 35px;	
+line-height: 33px;
+}
+
+.copyright p {
+font-size:17px;
+text-align:center;	
+}
+
+.footer-menu-area ul {
+text-align:center;	
+}
+
+.footer-menu-area ul li {
+font-size:17px;
+margin:20px 20px 0px 0px;	
+}
+
+.event-bt-main-area {
+padding: 0px 0px 30px 0px;	
+}
+
+
+.footer-menu-area ul li.footer-contact-hide {
+display:none;	
+}
+
+
+/*home page css responsive css end here*/
+
+
+
+
+/*inner banner responsive css start here*/
+
+.inner-banner-detail-area {
+height: 200px;
+}
+
+.breadcrum-info-title h2 {
+font-size: 25px;
+font-weight: 600;
+margin: 0px 0px 0px 0px;	
+}
+
+
+.breadcrum-info-title {
+margin: 50px 0px 0px 0px;	
+}
+
+.event-details-venu ul li i {
+margin: 0px 8px 0px 0px;	
+}
+
+
+/*inner banner responsive css end here*/
+
+
+
+
+/*event detail page  responsive css start here*/
+
+
+.event-dispription-main-area {
+padding: 40px 0px 0px 0px;	
+}
+
+.event-img-main-area img {
+height:300px;	
+}
+
+
+.event-details-venu {
+padding: 0px 0px 10px 0px;	
+}
+
+.event-details-venu ul li {
+margin: 0px 5px 0px 0px;
+padding: 15px 0px 0px 0px;
+font-size: 15px;	
+}
+
+.event-details-venu ul li i {
+font-size: 16px;
+}
+
+.event-detail-main-area h2 {
+font-size:21px;
+padding: 0px 0px 10px 0px;	
+}
+
+
+.event-details-join-area h3 {
+font-size: 22px;
+margin: 25px 0px 15px 0px;	
+}
+
+.event-rgt-form {
+width:100%;	
+}
+
+
+.event-select-rgt-form {
+width:100%;	
+}
+
+
+.evetn-masge-box {
+width:100%;	
+}
+
+.event-join-now-btn {
+padding: 5px 20px;
+font-size: 17px;	
+}
+
+.event-sidebar .sidebar-title {
+font-size:22px;	
+}
+
+.event-details-join-area {
+margin:0px 0px 30px 0px;	
+}
+
+.recent-posts-left-side-bar-area h4 {
+font-size:22px;	
+}
+
+
+/*event detail page responsive css end here*/
+
+
+
+
+/*service page css responsive css start here*/
+
+
+
+/*service page css responsive css end here*/
+
+
+}
+
+
+
+
+@media only screen and (min-width:767px) and (max-width:768px) {
+
+
+
+/*home page css responsive css start here*/
+
+
+.logowhite img {
+width:43%;	
+}
+
+.navbar-brand.logowhite {
+width:72%;	
+}
+
+ul.navbar-nav.mainnavigation {
+margin-left:0%;	
+margin-top: 20px;
+}
+
+.mainnavigation li.nav-item {
+padding: 0px 0px;
+border-top: 1px solid #fff;
+}
+
+.mainnavigation .nav-item.active a.nav-link {
+font-size: 14px;
+font-weight: 500;
+}
+
+.mainnavigation .nav-item a.nav-link {
+font-size:14px;
+font-weight: 500;	
+}
+
+
+.navbar-light .navbar-toggler-icon {
+background-image:none;	
+width:inherit;
+height:inherit;
+}
+
+.navbar-light .navbar-toggler {
+color:#fff;
+border-color:#fff;	
+}
+
+.navbar-toggler {
+padding: 4px 10px 5px 10px;
+}
+
+.main-slides-item.carousel-item {
+height:330px;	
+}
+
+
+.herosilder .carousel-caption h3 {
+font-size:25px;	
+}
+
+.herosilder .carousel-caption p {
+width:90%;	
+}
+
+
+.bannerBtn {
+width:25%;
+font-weight:500;	
+}
+
+.herosilder .carousel-caption {
+top:5%;	
+}
+
+
+.event-heading-main-area {
+padding:40px 0px 0px 0px;	
+}
+
+
+.event-heading-detail-area h2 {
+font-size:25px;	
+margin-bottom: 0px;
+}
+
+.event-heading-detail-area {
+width: 80%;	
+}
+
+.event-heading-detail-area p {
+font-size:15px;	
+line-height: 25px;
+}
+
+.upcoming-envent-card-area {
+width:100%;
+}
+
+.upcoming-envent-card-area h3 {
+font-size:19px;	
+margin-bottom: 0px;
+}
+
+.upcoming-envent-img-area img {
+margin: 0px 0px 0px 0px;	
+}
+
+
+.upcoming-envent-card-area h4 {
+font-size:16px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-text-area p {
+font-size: 15px;
+margin:10px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;
+margin: 10px 0px 0px 0px;	
+}
+
+.upcoming-envent-card-right-area {
+width:100%;	
+margin: 10px auto;
+}
+
+
+.upcoming-envent-card-right-area h3 {
+font-size:21px;	
+margin-bottom: 0px;
+}
+
+
+.upcoming-envent-card-right-area h4 {
+font-size:18px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-text-area p {
+font-size: 15px;
+margin: 5px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;	
+}
+
+.footer-detail-main-area {
+margin:45px 0px 0px 0px;	
+}
+
+.footer-company-logo img {
+width:50%;	
+}
+
+.social-media ul li {
+margin: 0px 10px 0px 10px;
+font-size: 16px;
+width: 35px;
+height: 35px;	
+line-height: 33px;
+}
+
+.copyright p {
+font-size:17px;
+text-align:center;	
+}
+
+.footer-menu-area ul {
+margin: 10px 0px 0px 0px;
+}
+
+.footer-menu-area ul li {
+font-size:17px;
+margin:20px 20px 0px 0px;	
+}
+
+
+.event-bt-main-area {
+    padding: 0px 0px 20px 0px;
+}
+
+.footer-menu-area ul li.footer-contact-hide {
+display:none;	
+}
+
+/*home page css responsive css end here*/
+
+
+
+/*event detail page responsive css start here*/
+
+
+.event-dispription-main-area {
+padding: 45px 0px 0px 0px;
+}
+
+.event-sidebar .sidebar-title {
+padding:0px 0px;
+margin:0px 0px 0px 0px;	
+}
+
+
+
+.event-details-left-text {
+width:30%;
+font-size: 15px;	
+}
+
+.event-details-right-text {
+font-size:15px;	
+}
+
+.eo-info-list-left {
+width:30%;
+font-size: 15px;	
+}
+
+.recent-posts-left-side-bar-area {
+margin: 15px 0px 5px 0px;
+padding:0px 0px 0px 0px;
+}
+
+.post-img-area h5 {
+font-size: 13px;
+line-height: 20px;
+margin: 0px 0px 0px 0px;	
+}
+
+.post-img-area p {
+font-size: 13px;	
+}
+
+
+.event-details-venu ul li i {
+margin: 0px 10px 0px 0px;
+font-size:18px;	
+}
+
+.event-details-venu ul li {
+padding: 10px 0px 10px 0px;	
+}
+
+
+.event-detail-main-area h2 {
+font-size: 20px;
+padding: 0px 0px 0px 0px;	
+}
+
+.event-details-join-area h3 {
+font-size:20px;	
+}
+
+.event-rgt-form {
+width:43%;	
+}
+
+.event-select-rgt-form {
+width:43%;	
+}
+
+.event-join-now-btn {
+padding: 8px 20px;
+font-size: 20px;	
+}
+
+.event-details-venu ul li {
+font-size: 16px;	
+}
+
+.post-img-area img {
+margin: 0px 10px 0px 0px;	
+}
+
+
+.evetn-masge-box {
+width:93%;	
+}
+
+/*event detail page responsive css end here*/
+
+
+
+
+}
+
+
+
+@media only screen and (min-width:769px) and (max-width:898px) {
+
+
+/*home page css responsive css start here*/
+
+
+.logowhite img {
+width:43%;	
+}
+
+.navbar-brand.logowhite {
+width:72%;	
+}
+
+ul.navbar-nav.mainnavigation {
+margin-left:0%;	
+margin-top: 20px;
+}
+
+.mainnavigation li.nav-item {
+padding: 0px 0px;
+border-top: 1px solid #fff;
+}
+
+.mainnavigation .nav-item.active a.nav-link {
+font-size: 14px;
+font-weight: 500;
+}
+
+.mainnavigation .nav-item a.nav-link {
+font-size:14px;
+font-weight: 500;	
+}
+
+
+.navbar-light .navbar-toggler-icon {
+background-image:none;	
+width:inherit;
+height:inherit;
+}
+
+.navbar-light .navbar-toggler {
+color:#fff;
+border-color:#fff;	
+}
+
+.navbar-toggler {
+padding: 4px 10px 5px 10px;
+}
+
+.main-slides-item.carousel-item {
+height:330px;	
+}
+
+
+.herosilder .carousel-caption h3 {
+font-size:25px;	
+}
+
+.herosilder .carousel-caption p {
+width:90%;	
+}
+
+
+.bannerBtn {
+width:25%;
+font-weight:500;	
+}
+
+.herosilder .carousel-caption {
+top:5%;	
+}
+
+
+.event-heading-main-area {
+padding:40px 0px 0px 0px;	
+}
+
+
+.event-heading-detail-area h2 {
+font-size:25px;	
+margin-bottom: 0px;
+}
+
+.event-heading-detail-area {
+width: 80%;	
+}
+
+.event-heading-detail-area p {
+font-size:15px;	
+line-height: 25px;
+}
+
+.upcoming-envent-card-area {
+width:100%;
+}
+
+.upcoming-envent-card-area h3 {
+font-size:21px;	
+margin-bottom: 0px;
+}
+
+.upcoming-envent-img-area img {
+margin: 0px 0px 0px 0px;	
+}
+
+
+.upcoming-envent-card-area h4 {
+font-size:18px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-text-area p {
+font-size: 15px;
+margin: 5px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;
+margin: 10px 0px 0px 0px;	
+}
+
+.upcoming-envent-card-right-area {
+width:100%;	
+margin: 10px auto;
+}
+
+
+.upcoming-envent-card-right-area h3 {
+font-size:21px;	
+margin-bottom: 0px;
+}
+
+
+.upcoming-envent-card-right-area h4 {
+font-size:18px;
+font-weight:500;	
+}
+
+.upcoming-envent-text-area {
+margin: 20px 0px 0px 0px;
+}
+
+.upcoming-envent-text-area p {
+font-size: 17px;
+margin: 5px 0px 0px 0px;	
+}
+
+.upcomming-event-btn {
+padding: 5px 15px;
+font-size: 15px;	
+}
+
+.footer-detail-main-area {
+margin:45px 0px 0px 0px;	
+}
+
+.footer-company-logo img {
+width:35%;	
+}
+
+.social-media ul li {
+margin: 0px 10px 0px 10px;
+font-size: 16px;
+width: 35px;
+height: 35px;	
+line-height: 33px;
+}
+
+.copyright p {
+font-size:17px;
+text-align:center;	
+}
+
+.footer-menu-area ul {
+text-align:center;	
+margin: 10px 0px 0px 0px;
+}
+
+.footer-menu-area ul li {
+font-size:17px;
+margin:20px 20px 0px 0px;	
+}
+
+.event-bt-main-area {
+    padding: 0px 0px 0px 0px;
+}
+
+/*home page css responsive css end here*/
+
+
+
+
+/*event detail page responsive css start here*/
+
+.event-dispription-main-area {
+padding: 50px 0px 0px 0px;
+}
+
+.event-sidebar .sidebar-title {
+padding:0px 0px;
+margin:0px 0px 0px 0px;	
+}
+
+.event-sidebar ul {
+padding:0px 0px 10px 0px;	
+}
+
+
+.event-details-left-text {
+width: 30%;
+font-size: 15px;	
+}
+
+.event-details-right-text {
+font-size:14px;	
+}
+
+.eo-info-list-left {
+width:33%;
+font-size: 15px;	
+}
+
+.recent-posts-left-side-bar-area {
+margin: 15px 0px 5px 0px;
+padding:0px 0px 0px 0px;
+}
+
+.post-img-area h5 {
+font-size: 13px;
+line-height: 20px;
+margin: 0px 0px 0px 0px;
+font-weight:600;	
+}
+
+
+.event-details-venu ul li i {
+margin: 0px 10px 0px 0px;
+font-size:18px;	
+}
+
+.event-details-venu ul li {
+padding: 10px 0px 10px 0px;	
+}
+
+
+.event-detail-main-area h2 {
+font-size: 20px;
+padding: 0px 0px 0px 0px;	
+}
+
+.event-details-join-area h3 {
+font-size:20px;	
+}
+
+.event-rgt-form {
+width:43%;	
+}
+
+.event-select-rgt-form {
+width:43%;	
+}
+
+.event-join-now-btn {
+padding: 8px 20px;
+font-size: 20px;	
+}
+
+
+.event-details-venu ul li {
+font-size: 16px;	
+}
+
+.post-img-area img {
+margin: 0px 10px 0px 0px;	
+}
+
+
+/*event detail page responsive css end here*/
+
+
+}
+
+
+
+@media only screen and (min-width:899px) and (max-width:992px) {
+
+
+
+/*home page css responsive css start here*/
+
+
+
+ul.navbar-nav.mainnavigation {
+margin-left: 28%;	
+}
+
+
+.herosilder .carousel-caption {
+top: 15%;	
+}
+
+.herosilder .carousel-caption h3 {
+font-size:30px;	
+}
+
+
+.main-slides-item.carousel-item {
+height:400px;	
+}
+
+
+.upcoming-envent-card-right-area {
+width:100%;	
+}
+
+
+.upcoming-envent-card-area {
+width:100%;	
+}
+
+.upcoming-envent-card-area h3 {
+font-size:18px;	
+}
+
+.upcoming-envent-card-area h4 {
+font-size:17px;	
+}
+
+.upcoming-envent-card-right-area {
+margin: 15px auto;	
+}
+
+.upcoming-envent-card-right-area h3 {
+font-size:22px;	
+}
+
+.upcoming-envent-card-right-area h4 {
+font-size:17px;	
+}
+
+.upcoming-envent-text-area p {
+font-size:17px;	
+}
+
+
+/*home page css responsive css end here*/
+
+
+
+
+/*event detail page responsive css start here*/
+
+.post-img-area h5 {
+font-size:14px;	
+}
+
+
+
+
+/*event detail page responsive css end here*/
+
+
+}
+
+
+
+
+@media only screen and (min-width:993px) and (max-width:1024px) {
+
+
+
+
+/*home page css responsive css start here*/
+
+
+
+ul.navbar-nav.mainnavigation {
+margin-left: 28%;	
+}
+
+
+.herosilder .carousel-caption {
+top: 15%;	
+}
+
+.herosilder .carousel-caption h3 {
+font-size:30px;	
+}
+
+
+.main-slides-item.carousel-item {
+height:400px;	
+}
+
+
+.upcoming-envent-card-right-area {
+width:100%;	
+}
+
+
+.upcoming-envent-card-area {
+width:100%;	
+}
+
+
+.upcoming-envent-card-area h3 {
+font-size:18px;	
+}
+
+.upcoming-envent-card-area h4 {
+font-size:17px;	
+}
+
+.upcoming-envent-card-right-area {
+margin: 15px auto;	
+}
+
+.upcoming-envent-card-right-area h3 {
+font-size:22px;	
+}
+
+.upcoming-envent-card-right-area h4 {
+font-size:17px;	
+}
+
+.upcoming-envent-text-area p {
+font-size:16px;	
+}
+
+
+/*home page css responsive css end here*/
+
+
+
+}
+
+
+@media only screen and (min-width:1025px) and (max-width:1199px) {
+
+
+
+
+/*home page css responsive css start here*/	
+
+ul.navbar-nav.mainnavigation {
+margin-left: 28%;	
+}
+
+.upcoming-envent-card-area h3 {
+font-size:20px;	
+}
+
+.upcoming-envent-card-area h4 {
+font-size:17px;	
+}
+
+
+.upcoming-envent-card-right-area h3 {
+font-size:20px;	
+}
+
+.upcoming-envent-card-right-area h4 {
+font-size:17px;	
+}
+
+.upcoming-envent-text-area p {
+font-size:17px;	
+}
+
+
+
+/*home page css responsive css end here*/
+
+
+
+
+
+/*event detail page responsive css start here*/
+
+.footer-detail-main-area {
+margin: 60px 0px 0px 0px;	
+}
+
+
+.post-img-area h5 {
+font-size:14px;	
+}
+
+
+
+/*event detail page responsive css end here*/
+
+
+
+}
+
+
+
+
+
+/*all page responsive css end here*/ 

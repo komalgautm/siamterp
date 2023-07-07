@@ -1,0 +1,293 @@
+var fullUrl = window.location.origin;
+var FULLURL="packing";
+
+$('form').submit(function(){
+    $(this).children('button[type=submit]').prop('disabled', true);
+});
+
+$( document ).ready(function() {
+    $('.select2').select2();
+});
+
+$('.confirm').click(function(){
+    const id = $(this).data('id');
+    $('#packing_id').val(id);
+    $.get(FULLURL+'/getPackVal?id='+id)
+    .done(function(data){
+        $('#code').text(data.code)
+        $('#ean').text(data.ean)
+        $('#name').text(data.name)
+        $('#qty').text(data.qty)
+        $('#unit').text(data.unit)
+    })
+})
+
+$('.restore').on('click',function(){
+    const id = $(this).data('id');
+    Swal.fire({
+        title: 'Are you restore ?',
+        // text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+          if(result.value){
+            $.ajax({url:FULLURL+'/restore',
+            method:'get',
+            data:{id:id},
+            success:function(rs){
+                if(rs == 'true'){
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "Successfully!",
+                        icon: "success",
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                        location.reload();
+                    });
+                }else{
+                    Swal.fire(
+                        'Error',
+                        'Please contact to Admin',
+                        'error'
+                    )
+                }
+            }
+            })
+        }
+    })
+})
+
+$('.waste').on('click',function(){
+    const id = $(this).data('id');
+    Swal.fire({
+        title: 'Waste ?',
+        // text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+          if(result.value){
+            $.ajax({url:FULLURL+'/waste',
+            method:'get',
+            data:{id:id},
+            success:function(rs){
+                if(rs == 'true'){
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "Successfully!",
+                        icon: "success",
+                        allowOutsideClick: false,
+                    }).then((result) => {
+                        location.reload();
+                    });
+                }else{
+                    Swal.fire(
+                        'Error',
+                        'Please contact to Admin',
+                        'error'
+                    )
+                }
+            }
+            })
+        }
+    })
+})
+
+$(document).on('change','.select_item',function(){
+    var $this = $(this);
+    const id = $this.val();
+    $.get(FULLURL+'/getUnit')
+    .done(function(data){
+        // console.log($this.parent().parent().find('div:nth-child(2) select.unitcount'))
+        $this.parent().parent().find('div:nth-child(2) select.unitcount').empty();
+        $this.parent().parent().find('div:nth-child(2) select.unitcount').append(data)
+    })
+    $.get(FULLURL+'/getEAN?id='+id)
+    .done(function(data){
+        $.each($('select[name^="ean"]'),function(){
+            $(this).empty();
+            $(this).append(data)
+        })
+    })
+    $('.add-row').attr('data-id',id);
+    $('.add-row').attr('style','display:inline')
+});
+
+$(document).on('change','.unitcount',function(){
+    var $this = $(this);
+    const item = $this.parent().parent().find('div:nth-child(1) select.select_item').val();
+    const unit = $this.val();
+    if(item != "" && unit != "")
+    $.get(FULLURL+'/getVal?item='+item+'&unit='+unit)
+    .done(function(data){
+        if(data.code != ""){
+            $('#code').html(data.code);
+            $('#quantity').html(data.qty);
+            $('#unit').html(data.unit);
+            $('#blue_crate').html(data.blue_crate);
+            $('#sorting_id').val(data.id);
+            $('#balance').val(data.qty);
+            $('#cost_asl').val(data.cost_asl);
+            $('#po_price').val(data.po_price);
+        }else if(data.code == ""){
+            alert('ไม่พบสินค้าที่จัดเรียงแล้ว / No products found.');
+            $('#code').empty();
+            $('#quantity').empty();
+            $('#unit').empty();
+            $('#blue_crate').empty();
+            $('#sorting_id').val(null);
+            $('#balance').val(null);
+            $('#cost_asl').val(null);
+            $('#po_price').val(null);
+            $('.select_item').val('').trigger('change');
+            $('.unitcount').val('').trigger('change');
+            $('.add-row').attr('style','display:none')
+        }
+    })
+});
+
+$('#qty').change(function(){
+    $this = $(this);
+    const new_qty = parseFloat($this.val());
+    const old_qty = parseFloat($('#quantity').html());
+    if(new_qty > old_qty){
+        alert('สินค้ามีจำนวนไม่พอ / Not enough products.')
+        $this.val(null)
+    }
+});
+
+
+// var ean = $.ajax({url:FULLURL+'/getEAN',method:'get',async:false,success:function(data){ ean=data }}).responseText;
+
+$(document).on('click','.add-row',function(){
+    var row = $('#sorted_table').find('tbody tr').last().data('id');
+    var id = $('.add-row').data('id');
+    var ean = $.ajax({url:FULLURL+'/getEAN',method:'get',async:false,data:{id:id},success:function(rs){ ean=rs }}).responseText;
+    var markup = '<tr id="row'+(row+1)+'" data-id="'+(row+1)+'"><td data-label="EAN"><select name="ean[]" id="ean'+(row+1)+'" class="form-control select_ean select2" style="width:100%">'+ean+'</select></td><td data-label="Quantity"><input type="number" class="form-control qty" name="quantity[]" placeholder="Enter quantity" value=""><input type="hidden" class="weight" name="weight[]"><input type="hidden" class="cost_packaging" name="cost_packaging[]"><input type="hidden" class="wrap_cost" name="wrap_cost[]"><input type="hidden" class="plus_cost" name="plus_cost[]"></td><td data-label="Action"><a href="javascript:" class="btn btn-danger delete-row" data-id="'+(row+1)+'" title="Delete"><i class="far fa-trash-alt"></i></a></td></tr>';
+    $("#sorted_table").append(markup);
+    $('.select2').select2();
+});
+
+$(document).on('click','.delete-row',function(){
+    const timing = $(this).data('timing');
+    if(typeof undefined == typeof timing)
+    {
+        $(this).parent().parent().remove();
+    }else{
+        const id = $(this).data('id');
+        $.ajax({
+            url: FULLURL+'/destroyEAN',
+            method:'get',
+            data: {id:id},
+        });
+        $(this).parent().parent().remove();
+    } 
+});
+
+$(document).on('change','.select_ean',function(){
+    var $this = $(this);
+    const id = $this.val();
+    $.get(FULLURL+'/getWeightEAN?id='+id)
+    .done(function(data){
+        $this.parent().parent().find('td:nth-child(2) input.weight').val(data);
+    })
+
+    $.get(FULLURL+'/getCostPack?id='+id)
+    .done(function(data){
+        // console.log(data);
+        $this.parent().parent().find('td:nth-child(2) input.cost_packaging').val(data.sum_cost);
+        $this.parent().parent().find('td:nth-child(2) input.qty_packaging').val(data.qty);
+    })
+
+    $.get(FULLURL+'/getWrapCost?id='+id)
+    .done(function(data){
+        $this.parent().parent().find('td:nth-child(2) input.wrap_cost').val(data);
+    })
+});
+
+function cal()
+{
+    const item_qty = $('#qty').val();
+    const finish = $('#finish_time').val();
+    const start = $('#start_time').val();
+    const number = $('#number_staff').val();
+    let loop = 0;
+    let wastage = 0;
+    $.each($('input.qty'),function(){
+        const total = parseFloat($(this).val());
+        const weight = parseFloat($(this).parent().find('input.weight').val());
+        loop+=total
+        const cal =  total*weight;
+        wastage+=parseFloat(cal);
+    });
+    const ean_qty = parseFloat(loop);
+    $.ajax({
+        url: FULLURL+'/CalWages',
+        method:'get',
+        data: {number:number,start:start,finish:finish,qty:ean_qty},
+        success:function(data){
+            $('#wages').val(data)
+            const wages = $('#wages').val();
+            const cal_wastage = item_qty-wastage;
+            // const percent_wastage = (cal_wastage/item_qty)*100
+            $('#wastage_weight').val(cal_wastage);
+            // $('#wastage_percent').val(percent_wastage);
+
+            let price = 0;
+            $.each($('.cost_packaging'),function(){
+                const plus = parseFloat($(this).val());
+                const wrap = parseFloat($(this).parent().find('input.wrap_cost').val());
+                price+=parseFloat(plus)+parseFloat(wrap);
+            })
+            $('.plus_cost').val(price)
+
+            const cost_asl = $('#cost_asl').val();
+            const cal_cost = cost_asl*item_qty/ean_qty;
+            $('#cost').val(cal_cost.toFixed(2))
+
+            let qty_package = 0;
+            $.each($('.qty_packaging'),function(){
+                qty_package+=parseFloat($(this).val());
+            })
+
+           // const cost_ean = parseFloat(cal_cost)+(parseFloat(price)*parseFloat(qty_package))+parseFloat(wages);
+              const cost_ean = parseFloat(cal_cost)+(parseFloat(price)+parseFloat(qty_package))+parseFloat(wages);/*change by sudhir*/
+            // console.log(cost_ean.toFixed(2))
+            $('#ean_cost').val(cost_ean.toFixed(2));
+
+            const po_price = $('#po_price').val();
+            const wastage_price = po_price/(cost_asl*item_qty/wastage);
+            // console.log(wastage_price)
+            $('#wastage').val(wastage_price.toFixed(3));
+
+            Swal.fire({
+                title: 'Are you save ?',
+                // text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+              }).then((result) => {
+                if (result.value) {
+                    swal.fire({
+                        title: 'Now loading',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        timer: 2000,
+                        onOpen: () => {
+                          swal.showLoading();
+                        }
+                    })
+                  $('#createForm').submit();
+                }
+              })
+        }
+    })
+    
+}

@@ -1,0 +1,33 @@
+.error,
+label.error{
+    color: #d21515;
+}
+label input[type="radio"].error{
+    color:#d21515
+}
+/* input.error, */
+input[type="text"].error,
+input[type="number"].error,
+input[type="file"].error,
+input[type="email"].error,
+input[type="password"].error,
+input[type="date"].error,
+input[type="time"].error,
+input[type="radio"].error,
+input[type="button"].error,
+select.error,
+textarea.error,
+button.error,
+.custom-file>.error
+{
+    border: 1px solid #d21515 !important;
+}
+.form-control.error:focus {
+    border-color: #e55353;
+    box-shadow: 0 0 0 0.2rem rgba(229,83,83,.25);
+}
+textarea[readonly],
+select[disabled]
+{
+    background: #f5f5f5;
+}
