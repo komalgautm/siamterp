@@ -58,6 +58,6 @@
         @endforeach
         @endif
         <script src="/back-end/build/build.js"></script>
-<script src="/back-end/new/form_double_submission.js"></script>
+        <script src="/back-end/new/form_double_submission.js"></script>
     </body>
 </html>

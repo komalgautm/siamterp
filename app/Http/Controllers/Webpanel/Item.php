@@ -32,12 +32,12 @@ class Item extends Controller
             $rows->appends(['view' => $request->view,'keyword' => $keyword,'page' => $request->page]);
         }
         return view("$this->prefix.pages.item.index",[
-            'css'=> ['public/back-end/css/table-responsive.css'],
+            'css'=> ['/back-end/css/table-responsive.css'],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
                 ['src'=>"/back-end/js/table-dragger.min.js"],
-                ["type"=>"text/javascript","src"=>"public/back-end/build/item.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/build/item.js"],
             ],
             'prefix' => $this->prefix,
             'folder' => 'item',
@@ -50,13 +50,13 @@ class Item extends Controller
     public function create()
     {
         return view("$this->prefix.pages.item.index",[
-            'css'=> ['public/back-end/css/table-responsive.css','public/back-end/css/validate.css'],
+            'css'=> ['/back-end/css/table-responsive.css','/back-end/css/validate.css'],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
-                ["type"=>"text/javascript","src"=>"public/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
                 ['src'=>"/back-end/js/table-dragger.min.js"],
-                ["type"=>"text/javascript","src"=>"public/back-end/build/item.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/build/item.js"],
             ],
             'prefix' => $this->prefix,
             'folder' => $this->folder,
@@ -98,13 +98,13 @@ class Item extends Controller
     {
         $row = ItemModel::find($id);
         return view("$this->prefix.pages.$this->folder.index",[
-            'css' => ['public/back-end/css/table-responsive.css','public/back-end/css/validate.css'],
+            'css' => ['/back-end/css/table-responsive.css','/back-end/css/validate.css'],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
-                ["type"=>"text/javascript","src"=>"public/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
-                ['src'=>"public/back-end/tinymce/tinymce.min.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
+                ['src'=>"/back-end/tinymce/tinymce.min.js"],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
-                ["type"=>"text/javascript","src"=>"public/back-end/build/item.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/build/item.js"],
             ],
             'prefix' => $this->prefix,
             'folder' => $this->folder,

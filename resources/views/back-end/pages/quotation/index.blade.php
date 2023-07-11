@@ -12,13 +12,13 @@
 
         <base href="{{url('/TERP/')}}">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
-        <link rel="stylesheet" href="public/back-end/fontawesome-5.11.2/css/all.css">
+        <link rel="stylesheet" href="/back-end/fontawesome-5.11.2/css/all.css">
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="theme-color" content="#ffffff">
         
-        <link href="public/back-end/css/style.css" rel="stylesheet">
-        {{-- <link href="public/back-end/bootstrap-4.3.1/css/bootstrap.css" rel="stylesheet"> --}}
-        <link href="public/back-end/vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+        <link href="/back-end/css/style.css" rel="stylesheet">
+        {{-- <link href="/back-end/bootstrap-4.3.1/css/bootstrap.css" rel="stylesheet"> --}}
+        <link href="/back-end/vendors/pace-progress/css/pace.min.css" rel="stylesheet">
 
     </head>
     <body class="c-app flex-row">    
@@ -46,8 +46,8 @@
             </footer>          
         </div>
             
-        <script src="public/back-end/vendors/pace-progress/js/pace.min.js"></script>
-        <script src="public/back-end/vendors/@coreui/js/coreui.bundle.min.js"></script>
+        <script src="/back-end/vendors/pace-progress/js/pace.min.js"></script>
+        <script src="/back-end/vendors/@coreui/js/coreui.bundle.min.js"></script>
         <script>
             var tooltipEl = document.getElementById('header-tooltip');
             var tootltip = new coreui.Tooltip(tooltipEl);
@@ -58,7 +58,7 @@
         <script @foreach($js[$key] as $k => $v){{$k}}="{{$v}}" @endforeach ></script>
         @endforeach
         @endif
-        <script src="public/back-end/build/build.js"></script>
-<script src="public/back-end/new/form_double_submission.js"></script>
+        <script src="/back-end/build/build.js"></script>
+        <script src="/back-end/new/form_double_submission.js"></script>
     </body>
 </html>

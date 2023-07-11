@@ -33,7 +33,7 @@ class Clearance extends Controller
         }
         return view("$this->prefix.pages.$this->folder.index",[
             'css'=> [
-                'public/back-end/css/table-responsive.css','public/back-end/css/validate.css',
+                'public/back-end/css/table-responsive.css','/back-end/css/validate.css',
                 'public/back-end/css/select2.min.css'
             ],
             'js' => [
@@ -61,7 +61,7 @@ class Clearance extends Controller
             ],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
-                ["type"=>"text/javascript","src"=>"public/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
                 ["src"=>'/back-end/js/select2.min.js'],
                 ['src'=>"/back-end/js/table-dragger.min.js"],

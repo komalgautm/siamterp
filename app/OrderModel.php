@@ -91,7 +91,6 @@ class OrderModel extends Model
             $tt_ref=$cd[0];
 
 
-
             if(date('Y',strtotime($maxBC->created)) == date("Y")){
                 $chk = substr("$tt_ref",-3); //0001
 

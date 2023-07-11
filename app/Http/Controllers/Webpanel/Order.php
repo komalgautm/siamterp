@@ -74,17 +74,17 @@ class Order extends Controller
         }*/
         return view("$this->prefix.pages.$this->folder.index",[
             'css'=> [
-                'public/back-end/css/table-responsive.css',
-                'public/back-end/css/select2.min.css',
+                '/back-end/css/table-responsive.css',
+                '/back-end/css/select2.min.css',
                 '//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css'
             ],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
-                ["src"=>'public/back-end/js/select2.min.js'],
+                ["src"=>'/back-end/js/select2.min.js'],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
                 ['src'=>"https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"],
                 ['src'=>"/back-end/js/table-dragger.min.js"],
-                ["type"=>"text/javascript","src"=>"public/back-end/build/$this->folder.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/build/$this->folder.js"],
             ],
             'prefix' => $this->prefix,
             'folder' => $this->folder,
@@ -274,10 +274,10 @@ class Order extends Controller
             ],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
-                ["src"=>'public/back-end/js/select2.min.js'],
+                ["src"=>'/back-end/js/select2.min.js'],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
                 ['src'=>"/back-end/js/table-dragger.min.js"],
-                ["type"=>"text/javascript","src"=>"public/back-end/build/$this->folder.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/build/$this->folder.js"],
             ],
             'prefix' => $this->prefix,
             'folder' => $this->folder,
@@ -308,10 +308,10 @@ class Order extends Controller
             ],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
-                ["src"=>'public/back-end/js/select2.min.js'],
+                ["src"=>'/back-end/js/select2.min.js'],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
                 ['src'=>"/back-end/js/table-dragger.min.js"],
-                ["type"=>"text/javascript","src"=>"public/back-end/build/$this->folder.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/build/$this->folder.js"],
             ],
             'prefix' => $this->prefix,
             'folder' => $this->folder,
@@ -486,19 +486,18 @@ class Order extends Controller
 
 
 
-                 $new->itotal_cost = $request->itotal_cost[$key];
-                 $new->rean_cost = $request->rean_cost[$key];
-                 $new->rclearance = $request->rclearance[$key];
-                 $new->rchamber = $request->rchamber[$key];
-                 $new->rtruck = $request->rtruck[$key];
-                 $new->rpallets = $request->rpallets[$key];
-                 $new->rifreight = $request->rifreight[$key];
+                $new->itotal_cost = $request->itotal_cost[$key];
+                $new->rean_cost = $request->rean_cost[$key];
+                $new->rclearance = $request->rclearance[$key];
+                $new->rchamber = $request->rchamber[$key];
+                $new->rtruck = $request->rtruck[$key];
+                $new->rpallets = $request->rpallets[$key];
+                $new->rifreight = $request->rifreight[$key];
                  
-                 $new->profit2 = $request->profit2[$key];
+                $new->profit2 = $request->profit2[$key];
 
-
-                   $new->fx_price = $request->fixPrice[$key];
-                   $new->itf_fx_price = $request->itf_fx_price[$key];
+                $new->fx_price = $request->fixPrice[$key];
+                $new->itf_fx_price = $request->itf_fx_price[$key];
 
 
                 $new->created = date('Y-m-d H:i:s');
@@ -1537,7 +1536,7 @@ class Order extends Controller
     }
 
 
-     public function getCostC($id,$num_box)
+    public function getCostC($id,$num_box)
     {
        
         $datas = ITFdetailModel::where('itf',$id)->get();
