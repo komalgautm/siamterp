@@ -97,20 +97,20 @@ class PO extends Controller
         //return response()->json($rows);
         return view("$this->prefix.pages.po.index",[
             'css'=> [
-                'public/back-end/css/table-responsive.css','public/back-end/css/validate.css',
-                //'public/back-end/css/select2.min.css'
+                '/back-end/css/table-responsive.css','/back-end/css/validate.css',
+                //'/back-end/css/select2.min.css'
                 'https://eflyerhomes.com/assets/frontend/css/select2.min.css',
 				'//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css'
             ],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
-                ["type"=>"text/javascript","src"=>"public/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
-                //["src"=>'public/back-end/js/select2.min.js'],
+                //["src"=>'/back-end/js/select2.min.js'],
                 ["src"=>'https://eflyerhomes.com/assets/frontend/js/select2.full.min.js'],
 				['src'=>"https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"],
                 ['src'=>"/back-end/js/table-dragger.min.js"],
-                ["type"=>"text/javascript","src"=>"public/back-end/build/po.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/build/po.js"],
             ],
             'prefix' => $this->prefix,
             'folder' => 'po',
@@ -128,20 +128,20 @@ class PO extends Controller
     {
         return view("$this->prefix.pages.po.index",[
             'css'=> [
-                'public/back-end/css/table-responsive.css',
-                'public/back-end/css/validate.css',
-                'public/back-end/css/select2.min.css',
+                '/back-end/css/table-responsive.css',
+                '/back-end/css/validate.css',
+                '/back-end/css/select2.min.css',
                 // 'public/back-end/bootstrap-select-1.13.0-dev/dist/css/bootstrap-select.css',
             ],
             'js' => [
                 ['type'=>"text/javascript",'src'=>"/back-end/js/jquery.min.js",'class'=>"view-script"],
-                ["type"=>"text/javascript","src"=>"public/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
-                // ['src'=>'public/back-end/js/bootstrap.min.js'],
-                // ["src"=>'public/back-end/bootstrap-select-1.13.0-dev/dist/js/bootstrap-select.js'],
-                ["src"=>'public/back-end/js/select2.min.js'],
+                ["type"=>"text/javascript","src"=>"/back-end/jquery-validation-1.19.1/dist/jquery.validate.min.js"],
+                // ['src'=>'/back-end/js/bootstrap.min.js'],
+                // ["src"=>'/back-end/bootstrap-select-1.13.0-dev/dist/js/bootstrap-select.js'],
+                ["src"=>'/back-end/js/select2.min.js'],
                 ["src"=>'/back-end/js/sweetalert2.all.min.js'],
                 ['src'=>"/back-end/js/table-dragger.min.js"],
-                ["type"=>"text/javascript","src"=>"public/back-end/build/po.js"],
+                ["type"=>"text/javascript","src"=>"/back-end/build/po.js"],
             ],
             'prefix' => $this->prefix,
             'folder' => $this->folder,
